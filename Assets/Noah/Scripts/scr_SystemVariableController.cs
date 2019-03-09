@@ -11,18 +11,7 @@ public class scr_SystemVariableController : MonoBehaviour
 
     void Start()
     {
-        if (volume == null)
-        {
-            volume = cl_VolumeManager.GetDeviceVolume();
-        }
-        if (volume_max == null)
-        {
-            volume_max = cl_VolumeManager.GetDeviceMaxVolume();
-        }
-        if (volume_min == null)
-        {
-            volume_min = cl_VolumeManager.GetDeviceMinVolume();
-        }
+        
     }
 
     // Update is called once per frame
@@ -35,7 +24,7 @@ public class scr_SystemVariableController : MonoBehaviour
 
     // Properties
 
-    public int Volume
+    public static int Volume
     {
         get
         {
@@ -47,7 +36,7 @@ public class scr_SystemVariableController : MonoBehaviour
         }
     }
 
-    public int Volume_Max
+    public static int Volume_Max
     {
         get
         {
@@ -55,11 +44,11 @@ public class scr_SystemVariableController : MonoBehaviour
             {
                 volume_max = cl_VolumeManager.GetDeviceMaxVolume();
             }
-            return (int)volume;
+            return (int)volume_max;
         }
     }
 
-    public int VolumeMin
+    public static int VolumeMin
     {
         get
         {
@@ -67,7 +56,7 @@ public class scr_SystemVariableController : MonoBehaviour
             {
                 volume_min = cl_VolumeManager.GetDeviceMinVolume();
             }
-            return (int)volume;
+            return (int)volume_min;
         }
     }
 }

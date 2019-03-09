@@ -34,9 +34,7 @@ public class cl_VolumeManager : MonoBehaviour
                 AndroidJavaClass up = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
                 AndroidJavaObject context = up.GetStatic<AndroidJavaObject>("currentActivity");
 
-                string audioName = context.GetStatic<string>("AUDIO_SERVICE");
-
-                audioManager = context.Call<AndroidJavaObject>("getSystemService", audioName);
+                audioManager = context.Call<AndroidJavaObject>("getSystemService", "audio");
             }
             return audioManager;
         }
