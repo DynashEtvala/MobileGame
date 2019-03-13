@@ -59,4 +59,12 @@ public class scr_SystemVariableController : MonoBehaviour
             return (int)volume_min;
         }
     }
+
+    public static float Volume_Percent
+    {
+        get
+        {
+            return (float)Volume / Volume_Max;
+        }
+    }
 }
