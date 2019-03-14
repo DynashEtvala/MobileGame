@@ -16,5 +16,13 @@ public class scr_VolumeColor_Test : MonoBehaviour
     void Update()
     {
         GetComponent<Renderer>().material.color = new Color(scr_SystemVariableController.Volume_Percent, scr_SystemVariableController.Volume_Percent, scr_SystemVariableController.Volume_Percent);
+        if (scr_SystemVariableController.Wifi_Enabled)
+        {
+            GetComponent<Renderer>().material.color = new Color(scr_SystemVariableController.Volume_Percent, scr_SystemVariableController.Volume_Percent, scr_SystemVariableController.Volume_Percent, scr_SystemVariableController.Screen_Brightness);
+        }
+        else
+        {
+            GetComponent<Renderer>().material.color = new Color(1 - scr_SystemVariableController.Volume_Percent, scr_SystemVariableController.Volume_Percent, scr_SystemVariableController.Volume_Percent, scr_SystemVariableController.Screen_Brightness);
+        }
     }
 }

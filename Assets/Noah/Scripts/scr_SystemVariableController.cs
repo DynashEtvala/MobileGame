@@ -8,6 +8,8 @@ public class scr_SystemVariableController : MonoBehaviour
     [SerializeField] static int? volume;
     [SerializeField] static int? volume_max;
     [SerializeField] static int? volume_min;
+    [SerializeField] static float? screen_brightness;
+    [SerializeField] static bool? wifi_enabled;
 
     void Start()
     {
@@ -17,9 +19,11 @@ public class scr_SystemVariableController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        volume = cl_VolumeManager.GetDeviceVolume();
-        volume_max = cl_VolumeManager.GetDeviceMaxVolume();
-        volume_min = cl_VolumeManager.GetDeviceMinVolume();
+        volume = null;
+        volume_max = null;
+        volume_min = null;
+        screen_brightness = null;
+        wifi_enabled = null;
     }
 
     // Properties
@@ -65,6 +69,30 @@ public class scr_SystemVariableController : MonoBehaviour
         get
         {
             return (float)Volume / Volume_Max;
+        }
+    }
+
+    public static float Screen_Brightness
+    {
+        get
+        {
+            if(screen_brightness == null)
+            {
+                screen_brightness = cl_GlobalSettingsManager.GetScreenBrightness();
+            }
+            return (float)screen_brightness;
+        }
+    }
+
+    public static bool Wifi_Enabled
+    {
+        get
+        {
+            if (wifi_enabled == null)
+            {
+                wifi_enabled = cl_WifiManager.IsWifiEnabled();
+            }
+            return (bool)wifi_enabled;
         }
     }
 }
