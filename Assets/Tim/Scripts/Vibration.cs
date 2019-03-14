@@ -5,6 +5,9 @@ using UnityEngine;
 public class Vibration : MonoBehaviour {
 
     private int randVal;
+    public int maxval;
+    public int minval;
+    public int hitval;
     void Start () {
 	}
 
@@ -16,8 +19,8 @@ public class Vibration : MonoBehaviour {
     }
     public void OnHit()
     {
-        randVal = Random.Range(1, 5);
-        if(randVal == 3)
+        randVal = Random.Range(minval,maxval );
+        if(randVal == hitval)
         {
             Handheld.Vibrate();
         }
