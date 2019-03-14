@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Vibration : MonoBehaviour {
-
+    public int minval;
+    public int maxval;
+    public int hitval;
     private int randVal;
     void Start () {
 	}
@@ -16,8 +18,8 @@ public class Vibration : MonoBehaviour {
     }
     public void OnHit()
     {
-        randVal = Random.Range(1, 5);
-        if(randVal == 3)
+        randVal = Random.Range(minval, maxval);
+        if(randVal == hitval)
         {
             Handheld.Vibrate();
         }

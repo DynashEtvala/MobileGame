@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f544ec25194394943ad831b7395a2636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randVal: 0
 --- !u!224 &275501654
 RectTransform:
   m_ObjectHideFlags: 0
@@ -341,9 +342,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 468687436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f544ec25194394943ad831b7395a2636, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a342facb5764b74db7091e4844acdba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minval: 1
+  maxval: 13
+  hitval: 4
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +502,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 468687438}
+      - m_Target: {fileID: 0}
         m_MethodName: OnHit
         m_Mode: 1
         m_Arguments:
