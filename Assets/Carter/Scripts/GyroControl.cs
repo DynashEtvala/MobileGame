@@ -6,15 +6,24 @@ public class GyroControl : MonoBehaviour {
 
     private bool gyroEnabled;
     private Gyroscope gyro;
-    private GameObject cameraContainer;
     private Quaternion rotatation;
+    float angle = 10f;
+    private GameObject cameraContainer;
+
+
+    private GameObject[] detectableObjects;
+    public List<Transform> detectableObjectsTransforms;
 
 	void Start () {
         cameraContainer = new GameObject("CameraContainer");
         cameraContainer.transform.position = transform.position;
         transform.SetParent(cameraContainer.transform);
-
         gyroEnabled = EnableGyro();
+        detectableObjects = GameObject.FindGameObjectsWithTag("detectableObject");
+        foreach(GameObject obj in detectableObjects)
+        {
+            detectableObjectsTransforms.Add(obj.transform);
+        }
 	}
 
     void Update()
@@ -22,6 +31,13 @@ public class GyroControl : MonoBehaviour {
         if (gyroEnabled)
         {
             transform.localRotation = gyro.attitude * rotatation;
+            foreach (Transform t in detectableObjectsTransforms)
+            {
+                if (Vector3.Angle(transform.forward, t.position - transform.position) < angle)
+                {
+                    //Debug.Log(t);
+                }
+            }
         }
     }
 
