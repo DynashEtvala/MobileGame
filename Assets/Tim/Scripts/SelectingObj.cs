@@ -26,9 +26,11 @@ public class SelectingObj : MonoBehaviour
 
             if (Physics.Raycast(touchPosN,touchPosF-touchPosN,out hit))
             {
-                if()
-                Debug.Log("Opening the window");
-                Destroy(cube);
+                if (cube.tag == "Sensor")
+                {
+                    Debug.Log("Opening the Sensor");
+                    Destroy(cube);
+                }
             }
         }
 
