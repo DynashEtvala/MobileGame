@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cl_WifiManager : MonoBehaviour {
+[System.Serializable]
+public static class cl_WifiManager {
 
     public static bool IsWifiEnabled()
     {

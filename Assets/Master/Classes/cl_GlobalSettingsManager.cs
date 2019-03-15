@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cl_GlobalSettingsManager : MonoBehaviour
+[System.Serializable]
+public static class cl_GlobalSettingsManager
 {
     public static float GetScreenBrightness()
     {

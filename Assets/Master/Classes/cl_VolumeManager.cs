@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cl_VolumeManager : MonoBehaviour
+[System.Serializable]
+public static class cl_VolumeManager
 {
 
     public static int GetDeviceMinVolume()
