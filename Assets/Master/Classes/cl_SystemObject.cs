@@ -23,7 +23,11 @@ abstract public class cl_SystemObject {
 
     abstract public void Update();
 
-    abstract public T GetVar<T>(string Name);
+    abstract public int GetInt(string Name);
+
+    abstract public int GetString(string Name);
+
+    abstract public int GetFloat(string Name);
 
     abstract public void SetVar<T>(string Name, T Val);
 }
