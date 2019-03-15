@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class GyroControl : MonoBehaviour {
 
+    [SerializeField]
     private bool gyroEnabled;
     private Gyroscope gyro;
+    [SerializeField]
     private Quaternion rotatation;
+    [SerializeField]
     float angle = 10f;
+    [SerializeField]
     private GameObject cameraContainer;
 
 
@@ -35,7 +39,7 @@ public class GyroControl : MonoBehaviour {
             {
                 if (Vector3.Angle(transform.forward, t.position - transform.position) < angle)
                 {
-                    //Debug.Log(t);
+                    Debug.Log(t);
                 }
             }
         }

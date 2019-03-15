@@ -548,6 +548,7 @@ GameObject:
   - component: {fileID: 2138087881}
   - component: {fileID: 2138087884}
   - component: {fileID: 2138087885}
+  - component: {fileID: 2138087886}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -644,3 +645,17 @@ MonoBehaviour:
   bridgeRoomHealth: 0
   weaponsRoomHealth: 0
   cargoRoomHealth: 0
+  nuclearIntensity: 0
+  power: 0
+  canConnectToSystems: 0
+--- !u!114 &2138087886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2138087880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19cdf9650e600046a7862d9eb462345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
