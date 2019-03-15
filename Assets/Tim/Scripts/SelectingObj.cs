@@ -8,8 +8,10 @@ public class SelectingObj : MonoBehaviour
     public int maxval;
     public int hitval;
     private int randVal;
-    public GameObject cube;
+    public List<GameObject> cube;
+    GameObject obj;
     public Camera cam;
+    public string tagValue;
     void Start()
     {
     }
@@ -23,19 +25,20 @@ public class SelectingObj : MonoBehaviour
             Vector3 touchPosF = cam.ScreenToWorldPoint(touchPosFar);
             Vector3 touchPosN = cam.ScreenToWorldPoint(touchPosNear);
             RaycastHit hit;
-
-            if (Physics.Raycast(touchPosN,touchPosF-touchPosN,out hit))
+            
+            if (Physics.Raycast(touchPosN, touchPosF - touchPosN, out hit))
             {
-                if (cube.tag == "Sensor")
-                {
-                    Debug.Log("Opening the Sensor");
-                    Destroy(cube);
-                }
+                if (hit.transform.gameObject.tag == tagValue)
+                    {
+                        Debug.Log(tagValue + "On");
+                        hit.transform.gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Random.ColorHSV());
+                    }
+                
             }
         }
 
-        }
-    }
+     }
+}
 
         //if (Input.touchCount > 0)
         //{
