@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class SelectingObj : MonoBehaviour
 {
-    public int minval;
+    int minval = 1;
     public int maxval;
     public int hitval;
-    private int randVal;
-    public List<GameObject> cube;
-    GameObject obj;
     public Camera cam;
-    public string tagValue;
+    public List<string> tagValue;
+    public string health;
     void Start()
     {
     }
@@ -28,24 +26,41 @@ public class SelectingObj : MonoBehaviour
             
             if (Physics.Raycast(touchPosN, touchPosF - touchPosN, out hit))
             {
-                if (hit.transform.gameObject.tag == tagValue)
+                for (int i = 0; i < tagValue.Capacity; i++)
+                {
+                    if (hit.transform.gameObject.tag == tagValue[i] && tagValue[i] != "Fire")
                     {
-                        Debug.Log(tagValue + "On");
-                        hit.transform.gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Random.ColorHSV());
+                        switch (tagValue[i])
+                        {
+                            case "Sensor":
+                                Debug.Log("Sensors Online");
+                                hit.transform.gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Random.ColorHSV());
+                                break;
+                            case "Targeting":
+                                Debug.Log("Targeting Onlne");
+                                hit.transform.gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Random.ColorHSV());
+                                break;
+                            case "Health":
+                                Debug.Log("Your Health Is:" + health);
+                                hit.transform.gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Random.ColorHSV());
+                                break;
+                        }
                     }
-                
+                    if (hit.transform.gameObject.tag == tagValue[i] && tagValue[i] == "Fire")
+                    {
+                        if (hitval == Random.Range(minval,maxval))
+                        {
+                            Debug.Log("Hit");
+                            Handheld.Vibrate();
+                        }
+                        else
+                        {
+                            Debug.Log("Miss");
+                        }
+                    }
+                }
             }
         }
 
-     }
+    }
 }
-
-        //if (Input.touchCount > 0)
-        //{
-        //    touch = Input.GetTouch(0);
-        //    Debug.DrawRay(touch.position, transform.forward);
-        //    if (Physics.Raycast(ray, out hit, 100.0f))
-        //    {
-        //        Debug.Log("HIT");
-        //    }
-        //}
