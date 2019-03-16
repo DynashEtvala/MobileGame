@@ -158,7 +158,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b5f9c50b90a8b9d4693caec8af7a7c53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -244,7 +244,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b5f9c50b90a8b9d4693caec8af7a7c53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -396,7 +396,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b5f9c50b90a8b9d4693caec8af7a7c53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -482,7 +482,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b5f9c50b90a8b9d4693caec8af7a7c53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -547,8 +547,6 @@ GameObject:
   - component: {fileID: 2138087882}
   - component: {fileID: 2138087881}
   - component: {fileID: 2138087884}
-  - component: {fileID: 2138087885}
-  - component: {fileID: 2138087886}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -627,35 +625,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04285a4b0e4cd0d4795ec7c00711eea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gyroEnabled: 0
+  rotatation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 10
+  cameraContainer: {fileID: 0}
   detectableObjectsTransforms: []
---- !u!114 &2138087885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2138087880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23aab18b40accfc4b8f09fb89b70bf19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hullHealth: 0
-  shieldHealth: 0
-  shieldRoomHealth: 0
-  bridgeRoomHealth: 0
-  weaponsRoomHealth: 0
-  cargoRoomHealth: 0
-  nuclearIntensity: 0
-  power: 0
-  canConnectToSystems: 0
---- !u!114 &2138087886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2138087880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b19cdf9650e600046a7862d9eb462345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

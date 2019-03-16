@@ -39,11 +39,11 @@ public class GyroControl : MonoBehaviour {
             {
                 if (Vector3.Angle(transform.forward, t.position - transform.position) < angle)
                 {
-                    t.GetComponentInParent<Renderer>().material.color = new Color(255, 0, 0);
+                    t.GetComponentInParent<Renderer>().material.color = new Color(255, 255, 255, 255);
                 }
                 else
                 {
-                    t.GetComponentInParent<Renderer>().material.color = new Color(255, 255, 255);
+                    t.GetComponentInParent<Renderer>().material.color = new Color(0, 0, 0, 0);
                 }
             }
         }
