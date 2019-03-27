@@ -4,57 +4,30 @@ using UnityEngine;
 
 [System.Serializable]
 public class cl_Station_Trader : cl_SystemObject {
-
+    //Method Names
+    public const string OPENSHOP = "OpenShop";
+    public const string ATTACKSHIP = "AttackShip";
 
     override public void Update()
     {
 
     }
 
-    override public int? GetInt(string Name)
-    {
-        switch (Name)
-        {
-            case HULLPOINTS:
-                return hp;
-            case HULLPOINTS_MAX:
-                return hpMax;
-            case SHIELD:
-                return shield;
-            case SHIELD_MAX:
-                return shieldMax;
-        }
-        return null;
-    }
-
-    override public string GetString(string Name)
-    {
-        return null;
-    }
-
-    override public float? GetFloat(string Name)
-    {
-        return null;
-    }
-
-    override public bool? GetBool(string Name)
-    {
-        return null;
-    }
-
+    //Generic Call Methods
     public override T GetVar<T>(string Name)
     {
         switch (Name)
         {
             case HULLPOINTS:
-                return hp;
+                return (T)(object)hp;
             case HULLPOINTS_MAX:
-                return hpMax;
+                return (T)(object)hpMax;
             case SHIELD:
-                return shield;
+                return (T)(object)shield;
             case SHIELD_MAX:
-                return shieldMax;
+                return (T)(object)shieldMax;
         }
+        throw new System.ArgumentException("Variable name " + Name + " is not valid");
     }
 
     override public void SetVar<T>(string Name, T Val)
@@ -65,7 +38,6 @@ public class cl_Station_Trader : cl_SystemObject {
                 if (Val.GetType() == hp.GetType())
                 {
                     hp = (int)(object)Val;
-                    T temp = (T)(object)hp;
                 }
                 break;
             case HULLPOINTS_MAX:
@@ -74,6 +46,37 @@ public class cl_Station_Trader : cl_SystemObject {
                 break;
             case SHIELD_MAX:
                 break;
+            default:
+                throw new System.Exception("Variable name " + Name + " is not valid");
         }
+    }
+
+    public override void CallMethod(string Name, params object[] args)
+    {
+        switch (Name)
+        {
+            case OPENSHOP:
+                OpenShop();
+                break;
+            case ATTACKSHIP:
+                if (args[0] is cl_SystemObject && args[1] is int)
+                {
+                    AttackShip((cl_SystemObject)args[0], (int)args[1]);
+                }
+                break;
+            default:
+                throw new System.Exception("Method name " + Name + " is not valid");
+        }
+    }
+
+    //Class Methods
+    public void OpenShop()
+    {
+
+    }
+
+    public void AttackShip(cl_SystemObject Target, int Weapon)
+    {
+
     }
 }

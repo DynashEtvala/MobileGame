@@ -29,20 +29,9 @@ abstract public class cl_SystemObject
 
     abstract public void Update();
 
-    abstract public int? GetInt(string Name);
-
-    abstract public string GetString(string Name);
-
-    abstract public float? GetFloat(string Name);
-
-    abstract public bool? GetBool(string Name);
-
     abstract public T GetVar<T>(string Name);
 
     abstract public void SetVar<T>(string Name, T Val);
 
-    protected T GetVarTest<T>(T Val)
-    {
-        return Val;
-    }
+    abstract public void CallMethod(string Name, params object[] args);
 }
