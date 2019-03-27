@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-abstract public class cl_SystemObject {
+abstract public class cl_SystemObject
+{
+    public const string HULLPOINTS = "HullPoints";
+    public const string HULLPOINTS_MAX = "HullPoints_Max";
+    public const string SHIELD = "Shield";
+    public const string SHIELD_MAX = "Shield_Max";
+
     protected List<string> tags;
 
-    Vector3 position;
-    int hp, hpMax;
-    int shield, shieldMax;
+    protected Vector3 position;
+    protected int hp, hpMax;
+    protected int shield, shieldMax;
 
     public cl_SystemObject()
     {
@@ -26,4 +32,6 @@ abstract public class cl_SystemObject {
     abstract public T GetVar<T>(string Name);
 
     abstract public void SetVar<T>(string Name, T Val);
+
+    abstract public void CallMethod(string Name, params object[] args);
 }
