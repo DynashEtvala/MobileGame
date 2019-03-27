@@ -4,17 +4,30 @@ using UnityEngine;
 
 public class GyroControl : MonoBehaviour {
 
+    [SerializeField]
     private bool gyroEnabled;
     private Gyroscope gyro;
-    private GameObject cameraContainer;
+    [SerializeField]
     private Quaternion rotatation;
+    [SerializeField]
+    float angle = 10f;
+    [SerializeField]
+    private GameObject cameraContainer;
+
+
+    private GameObject[] detectableObjects;
+    public List<Transform> detectableObjectsTransforms;
 
 	void Start () {
         cameraContainer = new GameObject("CameraContainer");
         cameraContainer.transform.position = transform.position;
         transform.SetParent(cameraContainer.transform);
-
         gyroEnabled = EnableGyro();
+        detectableObjects = GameObject.FindGameObjectsWithTag("detectableObject");
+        foreach(GameObject obj in detectableObjects)
+        {
+            detectableObjectsTransforms.Add(obj.transform);
+        }
 	}
 
     void Update()
@@ -22,6 +35,17 @@ public class GyroControl : MonoBehaviour {
         if (gyroEnabled)
         {
             transform.localRotation = gyro.attitude * rotatation;
+            foreach (Transform t in detectableObjectsTransforms)
+            {
+                if (Vector3.Angle(transform.forward, t.position - transform.position) < angle)
+                {
+                    t.GetComponentInParent<Renderer>().material.color = new Color(255, 255, 255, 255);
+                }
+                else
+                {
+                    t.GetComponentInParent<Renderer>().material.color = new Color(0, 0, 0, 0);
+                }
+            }
         }
     }
 
