@@ -56,12 +56,19 @@ public class Asteroid : cl_SectorObject
         switch (Name)
         {
             case MINERESOURCES:
-
+                if (args[0] is int)
+                {
+                    MineResources((int)args[0]);
+                }
+                break;
             default:
                 throw new System.Exception("Method name " + Name + " is not valid");
         }
     }
 
     //Class Methods
-    
+    public string MineResources(int Weapon) //Needs to return something not sure what yet.
+    {
+        return null;
+    }
 }
