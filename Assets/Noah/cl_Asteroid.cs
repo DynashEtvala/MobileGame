@@ -8,6 +8,11 @@ public class cl_Asteroid : cl_SectorObject
     //Method Names
     public const string MINERESOURCES = "MineResources";
 
+    public cl_Asteroid()
+    {
+        tags.Add(ASTEROID);
+    }
+
     override public void Update()
     {
 
