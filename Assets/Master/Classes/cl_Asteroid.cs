@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Asteroid : cl_SectorObject
+public class cl_Asteroid : cl_SectorObject
 {
     //Method Names
     public const string MINERESOURCES = "MineResources";

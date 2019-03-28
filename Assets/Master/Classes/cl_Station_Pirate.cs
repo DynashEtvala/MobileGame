@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Asteroid : cl_SectorObject
+public class cl_Station_Pirate : cl_SectorObject
 {
     //Method Names
-    public const string MINERESOURCES = "MineResources";
+    public const string ATTACKSHIP = "AttackShip";
 
     override public void Update()
     {
@@ -55,10 +55,10 @@ public class Asteroid : cl_SectorObject
     {
         switch (Name)
         {
-            case MINERESOURCES:
-                if (args[0] is int)
+            case ATTACKSHIP:
+                if (args[0] is cl_SectorObject && args[1] is int)
                 {
-                    MineResources((int)args[0]);
+                    AttackShip((cl_SectorObject)args[0], (int)args[1]);
                 }
                 break;
             default:
@@ -67,8 +67,8 @@ public class Asteroid : cl_SectorObject
     }
 
     //Class Methods
-    public string MineResources(int Weapon) //Needs to return something not sure what yet.
+    public void AttackShip(cl_SectorObject Target, int Weapon)
     {
-        return null;
+
     }
 }

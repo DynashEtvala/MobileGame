@@ -9,13 +9,13 @@ public class SelectingObj : MonoBehaviour
     public int hitval;
     public Camera cam;
     public List<string> tagValue;
-    public List<GameObject> differentComps;
+    public List<GameObject> Compnents;
     public int health;
     void Start()
     {
-        for(int t = 0; t < differentComps.Count; t++)
+        for(int t = 0; t < Compnents.Count; t++)
         {
-            differentComps[t].transform.gameObject.GetComponent<Renderer>().material.color = Color.green;
+            Compnents[t].transform.gameObject.GetComponent<Renderer>().material.color = Color.green;
         }
     }
     void Update()
@@ -58,32 +58,36 @@ public class SelectingObj : MonoBehaviour
                             Debug.Log("Hit");
                             int randDmg = Random.Range(1, 100);
                             health = health - randDmg;
-                            int randomComp = Random.Range(0, differentComps.Count + 1);
+                            int randomComp = Random.Range(0, Compnents.Count + 1);
                             Handheld.Vibrate();
                             if (health < 100)
                             {
-                                if (differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.green)
+                                if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.green)
                                 {
-                                    differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+                                    Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f,1);
                                     break;
                                 }
-                                if (differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.yellow)
+                                if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(1.0f, 0.39f, 0, 1))
                                 {
-                                    differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                                    Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(0.59f, 0.0f, 0, 1);
                                     break;
                                 }
-                                if (differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.red)
+                                if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(0.59f, 0.0f, 0, 1))
                                 {
-                                    differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.gray;
+                                    Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                                    break;
+                                }
+                                else
+                                {
                                     break;
                                 }
                                  
                             }
                            }
-                        }
                         else
                         {
                             Debug.Log("Miss");
+                        }
                         }
                 }
             }
