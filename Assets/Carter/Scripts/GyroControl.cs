@@ -14,20 +14,27 @@ public class GyroControl : MonoBehaviour {
     [SerializeField]
     private GameObject cameraContainer;
 
-
+    //Game object method
     private GameObject[] detectableObjects;
     public List<Transform> detectableObjectsTransforms;
+
+    //Data oriented method
+    private GameObject objectManager;
+    private cl_SectorObject[] sectorObjects;
+    
 
 	void Start () {
         cameraContainer = new GameObject("CameraContainer");
         cameraContainer.transform.position = transform.position;
         transform.SetParent(cameraContainer.transform);
         gyroEnabled = EnableGyro();
-        detectableObjects = GameObject.FindGameObjectsWithTag("detectableObject");
-        foreach(GameObject obj in detectableObjects)
-        {
-            detectableObjectsTransforms.Add(obj.transform);
-        }
+        //detectableObjects = GameObject.FindGameObjectsWithTag("detectableObject");
+        //foreach(GameObject obj in detectableObjects)
+        //{
+        //    detectableObjectsTransforms.Add(obj.transform);
+        //}
+
+        sectorObjects = GetComponents<cl_SectorObject>();
 	}
 
     void Update()
@@ -35,7 +42,7 @@ public class GyroControl : MonoBehaviour {
         if (gyroEnabled)
         {
             transform.localRotation = gyro.attitude * rotatation;
-            foreach (Transform t in detectableObjectsTransforms)
+            /*foreach (Transform t in detectableObjectsTransforms)
             {
                 float currAngle = Vector3.Angle(transform.forward, t.position - transform.position);
                 if (currAngle < angle)
@@ -54,12 +61,20 @@ public class GyroControl : MonoBehaviour {
                 {
                     t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.25f);
                 }
-
                 else
                 {
                     t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0f);
                 }
+            }*/
+            foreach (cl_SectorObject obj in sectorObjects)
+            {
+                float relativeCurrentAngle = Vector3.Angle(transform.forward, obj.position - transform.position);
+                if(relativeCurrentAngle <= angle)
+                {
+                    //Lock on
+                }
             }
+
         }
     }
 

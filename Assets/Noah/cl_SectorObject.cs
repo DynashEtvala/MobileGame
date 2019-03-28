@@ -22,7 +22,7 @@ abstract public class cl_SectorObject
 
     public List<string> tags;
 
-    protected Vector3 position;
+    public Vector3 position;
     protected int hp, hpMax;
     protected int shield, shieldMax;
 
