@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class cl_Station_Trader : cl_SystemObject {
+public class Asteroid : cl_SectorObject
+{
     //Method Names
-    public const string OPENSHOP = "OpenShop";
-    public const string ATTACKSHIP = "AttackShip";
+    public const string MINERESOURCES = "MineResources";
 
     override public void Update()
     {
@@ -55,28 +55,13 @@ public class cl_Station_Trader : cl_SystemObject {
     {
         switch (Name)
         {
-            case OPENSHOP:
-                OpenShop();
-                break;
-            case ATTACKSHIP:
-                if (args[0] is cl_SystemObject && args[1] is int)
-                {
-                    AttackShip((cl_SystemObject)args[0], (int)args[1]);
-                }
-                break;
+            case MINERESOURCES:
+
             default:
                 throw new System.Exception("Method name " + Name + " is not valid");
         }
     }
 
     //Class Methods
-    public void OpenShop()
-    {
-
-    }
-
-    public void AttackShip(cl_SystemObject Target, int Weapon)
-    {
-
-    }
+    
 }

@@ -627,6 +627,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gyroEnabled: 0
   rotatation: {x: 0, y: 0, z: 0, w: 0}
-  angle: 10
+  angle: 7.32
   cameraContainer: {fileID: 0}
   detectableObjectsTransforms: []

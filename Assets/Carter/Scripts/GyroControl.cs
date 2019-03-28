@@ -37,13 +37,27 @@ public class GyroControl : MonoBehaviour {
             transform.localRotation = gyro.attitude * rotatation;
             foreach (Transform t in detectableObjectsTransforms)
             {
-                if (Vector3.Angle(transform.forward, t.position - transform.position) < angle)
+                float currAngle = Vector3.Angle(transform.forward, t.position - transform.position);
+                if (currAngle < angle)
                 {
-                    t.GetComponentInParent<Renderer>().material.color = new Color(255, 255, 255, 255);
+                    t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                 }
+                else if (currAngle < angle + 5.0f)
+                {
+                    t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.8f);
+                }
+                else if (currAngle < angle + 7.0f)
+                {
+                    t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+                }
+                else if (currAngle < angle + 10.0f)
+                {
+                    t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.25f);
+                }
+
                 else
                 {
-                    t.GetComponentInParent<Renderer>().material.color = new Color(0, 0, 0, 0);
+                    t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0f);
                 }
             }
         }

@@ -9,13 +9,17 @@ public class SelectingObj : MonoBehaviour
     public int hitval;
     public Camera cam;
     public List<string> tagValue;
-    public string health;
+    public List<GameObject> differentComps;
+    public int health;
     void Start()
     {
+        for(int t = 0; t < differentComps.Count; t++)
+        {
+            differentComps[t].transform.gameObject.GetComponent<Renderer>().material.color = Color.green;
+        }
     }
     void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 touchPosFar = new Vector3(Input.mousePosition.x,Input.mousePosition.y,cam.farClipPlane);
@@ -25,7 +29,7 @@ public class SelectingObj : MonoBehaviour
             RaycastHit hit;
             
             if (Physics.Raycast(touchPosN, touchPosF - touchPosN, out hit))
-            {
+            { 
                 for (int i = 0; i < tagValue.Capacity; i++)
                 {
                     if (hit.transform.gameObject.tag == tagValue[i] && tagValue[i] != "Fire")
@@ -48,19 +52,42 @@ public class SelectingObj : MonoBehaviour
                     }
                     if (hit.transform.gameObject.tag == tagValue[i] && tagValue[i] == "Fire")
                     {
-                        if (hitval == Random.Range(minval,maxval))
+                        int randHitVal = Random.Range(minval, maxval + 1);
+                        if (hitval == randHitVal)
                         {
                             Debug.Log("Hit");
+                            int randDmg = Random.Range(1, 100);
+                            health = health - randDmg;
+                            int randomComp = Random.Range(0, differentComps.Count + 1);
                             Handheld.Vibrate();
+                            if (health < 100)
+                            {
+                                if (differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.green)
+                                {
+                                    differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+                                    break;
+                                }
+                                if (differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.yellow)
+                                {
+                                    differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                                    break;
+                                }
+                                if (differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.red)
+                                {
+                                    differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.gray;
+                                    break;
+                                }
+                                 
+                            }
+                           }
                         }
                         else
                         {
                             Debug.Log("Miss");
                         }
-                    }
                 }
             }
         }
-
     }
+
 }
