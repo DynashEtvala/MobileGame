@@ -5,6 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerShip : cl_SectorObject //TODO Rename to cl_Ship_Player
 {
+    //Phone Interface
+    private scr_SystemVariableController phone;
+
     //Phone Functions
     [Header("Phone Functions")]
     [SerializeField]
@@ -21,6 +24,7 @@ public class PlayerShip : cl_SectorObject //TODO Rename to cl_Ship_Player
     {
         tags.Add(SHIP);
         tags.Add("Player"); //TODO Add PLAYER tag to cl_SectorObject
+
     }
 
     override public void Update()
