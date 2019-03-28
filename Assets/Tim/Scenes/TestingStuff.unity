@@ -608,7 +608,7 @@ MonoBehaviour:
   - Targeting
   - Health
   - Fire
-  differentComps:
+  Compnents:
   - {fileID: 2011503823}
   - {fileID: 1874306304}
   - {fileID: 658125232}
