@@ -64,10 +64,10 @@ public class SelectingObj : MonoBehaviour
                             {
                                 if (differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.green)
                                 {
-                                    differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+                                    differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f,1);
                                     break;
                                 }
-                                if (differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.yellow)
+                                if (differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(1.0f, 0.39f, 0, 1))
                                 {
                                     differentComps[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.red;
                                     break;
