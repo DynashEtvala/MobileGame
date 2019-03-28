@@ -9,6 +9,12 @@ public class cl_Ship_Trader : cl_SectorObject
     public const string OPENSHOP = "OpenShop";
     public const string ATTACKSHIP = "AttackShip";
 
+    public cl_Ship_Trader()
+    {
+        tags.Add(SHIP);
+        tags.Add(TRADER);
+    }
+
     override public void Update()
     {
 

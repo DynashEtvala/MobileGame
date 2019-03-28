@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class cl_Station_Trader : cl_SectorObject {
+public class cl_Station_Trader : cl_SectorObject
+{
     //Method Names
     public const string OPENSHOP = "OpenShop";
     public const string ATTACKSHIP = "AttackShip";
+
+    public cl_Station_Trader()
+    {
+        tags.Add(STATION);
+        tags.Add(TRADER);
+    }
 
     override public void Update()
     {

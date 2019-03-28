@@ -8,6 +8,12 @@ public class cl_Ship_Pirate : cl_SectorObject
     //Method Names
     public const string ATTACKSHIP = "AttackShip";
 
+    public cl_Ship_Pirate()
+    {
+        tags.Add(SHIP);
+        tags.Add(PIRATE);
+    }
+
     override public void Update()
     {
 

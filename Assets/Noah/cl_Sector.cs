@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class cl_Sector {
-    List<cl_SectorObject> sectorObjects;
+    public List<cl_SectorObject> sectorObjects;
     int sectorNum;
 
     public cl_Sector()
