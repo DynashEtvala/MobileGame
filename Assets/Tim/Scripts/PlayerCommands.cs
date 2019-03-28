@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectingObj : MonoBehaviour
+public class PlayerCommands : MonoBehaviour
 {
     int minval = 1;
     public int maxVal;
@@ -34,7 +34,7 @@ public class SelectingObj : MonoBehaviour
             {
                 for (int i = 0; i < tagValue.Capacity; i++)
                 {
-                    if (rayHit.transform.gameObject.tag == tagValue[i] && tagValue[i] != "Fire")
+                    if (rayHit.transform.gameObject.tag == tagValue[i] && tagValue[i] != "Fire" && healthRemaining > 0)
                     {
                         switch (tagValue[i])
                         {
@@ -52,17 +52,17 @@ public class SelectingObj : MonoBehaviour
                                 break;
                         }
                     }
-                    if (rayHit.transform.gameObject.tag == tagValue[i] && tagValue[i] == "Fire")
+                    if (rayHit.transform.gameObject.tag == tagValue[i] && tagValue[i] == "Fire" && healthRemaining > 0)
                     {
                         int randHitVal = Random.Range(minval, maxVal);
                         if (hit == randHitVal)
                         {
                             Debug.Log("Hit");
-                            healthRemaining = healthRemaining - 4;
+                            healthRemaining = healthRemaining - 10;
                             int randomComp = Random.Range(0, Compnents.Count);
                             Debug.Log(randomComp);
                             Handheld.Vibrate();
-                            if (healthRemaining < StartingHealth)
+                            if (healthRemaining < StartingHealth && healthRemaining != 0)
                             {
                                 if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.green)
                                 {
@@ -89,8 +89,9 @@ public class SelectingObj : MonoBehaviour
                                 }
                             }
 
-                            else
+                            else if(healthRemaining < 0)
                             {
+                                Debug.Log("You Lose");
                                 break;
                             }
 
@@ -100,7 +101,7 @@ public class SelectingObj : MonoBehaviour
                             Debug.Log("Miss");
                         }
                     }
-                    if (rayHit.transform.gameObject.tag == tagValue[i] && tagValue[i] == "Repair")
+                    if (rayHit.transform.gameObject.tag == tagValue[i] && tagValue[i] == "Repair" && healthRemaining > 0)
                     {
                         int DamagedComp = Random.Range(0, Compnents.Count);
                         if (Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.black)
