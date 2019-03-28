@@ -597,10 +597,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 899928585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b031072ab5e31b43b8e077b8f0a9a08, type: 3}
+  m_Script: {fileID: 11500000, guid: ed47622ab2b67f240ad83bf44fff1627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxval: 5
+  maxval: 7
   hitval: 2
   cam: {fileID: 29377569}
   tagValue:
