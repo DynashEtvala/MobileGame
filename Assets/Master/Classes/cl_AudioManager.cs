@@ -2,12 +2,12 @@
 using UnityEngine.Audio;
 using System;
 
-public class AudioManager : MonoBehaviour
+public class cl_AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    public static cl_AudioManager instance;
 
 
-    public Sound[] sounds;
+    public cl_Sound[] sounds;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        foreach (Sound s in sounds)
+        foreach (cl_Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
@@ -40,7 +40,7 @@ public class AudioManager : MonoBehaviour
 
     public void Play(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        cl_Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning("Sound " + name + " not found!");
@@ -54,7 +54,7 @@ public class AudioManager : MonoBehaviour
 
     public void Stop(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        cl_Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning("Sound " + name + " not found!");
@@ -68,7 +68,7 @@ public class AudioManager : MonoBehaviour
 
     public void Mute(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        cl_Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning("Sound " + name + " not found!");
