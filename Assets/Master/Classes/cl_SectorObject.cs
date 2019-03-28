@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-abstract public class cl_SystemObject
+abstract public class cl_SectorObject
 {
     public const string HULLPOINTS = "HullPoints";
     public const string HULLPOINTS_MAX = "HullPoints_Max";
@@ -16,13 +16,13 @@ abstract public class cl_SystemObject
     protected int hp, hpMax;
     protected int shield, shieldMax;
 
-    public cl_SystemObject()
+    public cl_SectorObject()
     {
         tags = new List<string>();
         position = Vector3.zero;
     }
 
-    public cl_SystemObject(List<string> Tags, Vector3 Position)
+    public cl_SectorObject(List<string> Tags, Vector3 Position)
     {
 
     }
