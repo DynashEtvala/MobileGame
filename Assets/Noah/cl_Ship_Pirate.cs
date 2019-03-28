@@ -5,8 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class cl_Ship_Pirate : cl_SectorObject
 {
+    //Variable Names
+    public const string DIRECTION = "Direction";
+    public const string SPEED = "Speed";
+
     //Method Names
     public const string ATTACKSHIP = "AttackShip";
+
+    //Variables
+    Vector3 direction;
+    float speed;
 
     public cl_Ship_Pirate()
     {
@@ -14,9 +22,21 @@ public class cl_Ship_Pirate : cl_SectorObject
         tags.Add(PIRATE);
     }
 
+    public cl_Ship_Pirate(Vector3 Position) : this()
+    {
+        position = Position;
+        direction = Random.onUnitSphere;
+        speed = Random.Range(0.5f, 1.5f);
+    }
+
+    public cl_Ship_Pirate(Vector3 Position, int SectorNum) : this(Position)
+    {
+        throw new System.NotImplementedException();
+    }
+
     override public void Update(cl_Sector Sector)
     {
-
+        position += direction * speed;
     }
 
     //Generic Call Methods
