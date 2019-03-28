@@ -42,7 +42,10 @@ public class GyroControl : MonoBehaviour {
         foreach(cl_SectorObject obj in sectorObjects)
         {
             Debug.Log(obj.ToString());
+            obj.position.y = -10;
+            Debug.Log(obj.position);
         }
+        sectorObjects[0].position.y = 10;
 	}
 
     void Update()
@@ -82,7 +85,7 @@ public class GyroControl : MonoBehaviour {
                     //Lock on
                     Debug.Log("Lock On");
                 }
-                else if(relativeCurrentAngle <= angle + angle * 0.75f)
+                else if(relativeCurrentAngle <= angle + angle * 0.10f)
                 {
                     //75% Lock on
                     Debug.Log("75% Lock On");
@@ -92,12 +95,12 @@ public class GyroControl : MonoBehaviour {
                     //50% Lock on
                     Debug.Log("50% Lock On");
                 }
-                else if(relativeCurrentAngle <= angle + angle * 0.25f)
+                else if(relativeCurrentAngle <= angle + angle * 0.75f)
                 {
                     //25% Lock on
                     Debug.Log("25% Lock On");
                 }
-                else if(relativeCurrentAngle <= angle + angle * 0.10f)
+                else if(relativeCurrentAngle <= angle + angle)
                 {
                     //10% Lock on
                     Debug.Log("10% Lock On");
