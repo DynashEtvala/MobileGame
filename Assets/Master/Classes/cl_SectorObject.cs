@@ -5,12 +5,22 @@ using UnityEngine;
 [System.Serializable]
 abstract public class cl_SectorObject
 {
+    //Variable Names
     public const string HULLPOINTS = "HullPoints";
     public const string HULLPOINTS_MAX = "HullPoints_Max";
     public const string SHIELD = "Shield";
     public const string SHIELD_MAX = "Shield_Max";
 
-    protected List<string> tags;
+    //Tags
+    public const string STATION = "Station";
+    public const string SHIP = "Ship";
+    public const string ASTEROID = "Asteroid";
+
+    public const string TRADER = "Trader";
+    public const string PIRATE = "Pirate";
+
+
+    public List<string> tags;
 
     protected Vector3 position;
     protected int hp, hpMax;
