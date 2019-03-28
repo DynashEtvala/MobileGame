@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerShip : cl_SectorObject //TODO Rename to cl_Ship_Player
+public class cl_Ship_Player : cl_SectorObject
 {
-    //Phone Interface
-    private scr_SystemVariableController phone;
 
     //Phone Functions
     [Header("Phone Functions")]
@@ -20,16 +18,23 @@ public class PlayerShip : cl_SectorObject //TODO Rename to cl_Ship_Player
     //Method Names
     public const string ATTACKSHIP = "AttackShip";
 
-    public PlayerShip() : base()
+    public cl_Ship_Player() : base()
     {
+
         tags.Add(SHIP);
         tags.Add("Player"); //TODO Add PLAYER tag to cl_SectorObject
 
+
+        nuclearIntensity = scr_SystemVariableController.Volume;
+        power = scr_SystemVariableController.Screen_Brightness;
+        canConnectToSystems = scr_SystemVariableController.Wifi_Enabled;
     }
 
     override public void Update()
     {
-
+        nuclearIntensity = scr_SystemVariableController.Volume;
+        power = scr_SystemVariableController.Screen_Brightness;
+        canConnectToSystems = scr_SystemVariableController.Wifi_Enabled;
     }
 
     //Generic Call Methods
