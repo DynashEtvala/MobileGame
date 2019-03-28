@@ -9,6 +9,7 @@ TagManager:
   - Health
   - Fire
   - Repair
+  - GameManager
   layers:
   - Default
   - TransparentFX
