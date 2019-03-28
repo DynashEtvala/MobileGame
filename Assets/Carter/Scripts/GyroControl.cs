@@ -10,7 +10,7 @@ public class GyroControl : MonoBehaviour {
     [SerializeField]
     private Quaternion rotatation;
     [SerializeField]
-    float angle = 10f;
+    float angle;
     [SerializeField]
     private GameObject cameraContainer;
 
@@ -20,7 +20,9 @@ public class GyroControl : MonoBehaviour {
 
     //Data oriented method
     private GameObject objectManager;
-    private cl_SectorObject[] sectorObjects;
+    private scr_SectorController sectorController;
+    private cl_Sector currSector;
+    private List<cl_SectorObject> sectorObjects;
     
 
 	void Start () {
@@ -33,8 +35,14 @@ public class GyroControl : MonoBehaviour {
         //{
         //    detectableObjectsTransforms.Add(obj.transform);
         //}
-
-        sectorObjects = GetComponents<cl_SectorObject>();
+        objectManager = GameObject.FindGameObjectWithTag("GameManager");
+        sectorController = objectManager.GetComponent<scr_SectorController>();
+        currSector = sectorController.currSector;
+        sectorObjects = currSector.sectorObjects;
+        foreach(cl_SectorObject obj in sectorObjects)
+        {
+            Debug.Log(obj.ToString());
+        }
 	}
 
     void Update()
@@ -68,10 +76,35 @@ public class GyroControl : MonoBehaviour {
             }*/
             foreach (cl_SectorObject obj in sectorObjects)
             {
-                float relativeCurrentAngle = Vector3.Angle(transform.forward, obj.position - transform.position);
+                float relativeCurrentAngle = Vector3.Angle(transform.forward, obj.position);
                 if(relativeCurrentAngle <= angle)
                 {
                     //Lock on
+                    Debug.Log("Lock On");
+                }
+                else if(relativeCurrentAngle <= angle + angle * 0.75f)
+                {
+                    //75% Lock on
+                    Debug.Log("75% Lock On");
+                }
+                else if(relativeCurrentAngle <= angle + angle * 0.50f)
+                {
+                    //50% Lock on
+                    Debug.Log("50% Lock On");
+                }
+                else if(relativeCurrentAngle <= angle + angle * 0.25f)
+                {
+                    //25% Lock on
+                    Debug.Log("25% Lock On");
+                }
+                else if(relativeCurrentAngle <= angle + angle * 0.10f)
+                {
+                    //10% Lock on
+                    Debug.Log("10% Lock On");
+                }
+                else
+                {
+                    //No Lock
                 }
             }
 

@@ -9,7 +9,7 @@ public class cl_Station_Trader : cl_SectorObject
     public const string OPENSHOP = "OpenShop";
     public const string ATTACKSHIP = "AttackShip";
 
-    public cl_Station_Trader()
+    public cl_Station_Trader() : base()
     {
         tags.Add(STATION);
         tags.Add(TRADER);

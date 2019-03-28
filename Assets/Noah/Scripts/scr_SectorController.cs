@@ -22,7 +22,7 @@ public class scr_SectorController : MonoBehaviour {
         List<cl_SectorObject> tempObjectList = new List<cl_SectorObject>();
 
         int objectGenCount = 5; //TODO: make variable based on certain factors
-        for(int i = 0; i < objectGenCount; i++)
+        while(tempObjectList.Count < objectGenCount)
         {
             List<string> typeWeights = new List<string>();
             if (!ListContainsObjectWithTag(tempObjectList, cl_SectorObject.STATION))
@@ -41,57 +41,66 @@ public class scr_SectorController : MonoBehaviour {
                 typeWeights.Add(cl_SectorObject.ASTEROID);
             }
 
-            switch(typeWeights[Random.Range(0, typeWeights.Count)])
+            if (typeWeights.Count > 0)
             {
-                case cl_SectorObject.STATION:
-                    {
-                        List<string> factionWeights = new List<string>();
-                        for (int j = 0; j < 6 - ListObjectWithTagCount(tempObjectList, cl_SectorObject.TRADER); j++)
+                switch (typeWeights[Random.Range(0, typeWeights.Count)])
+                {
+                    case cl_SectorObject.STATION:
                         {
-                            typeWeights.Add(cl_SectorObject.TRADER);
+                            List<string> factionWeights = new List<string>();
+                            for (int j = 0; j < 6 - ListObjectWithTagCount(tempObjectList, cl_SectorObject.TRADER); j++)
+                            {
+                                factionWeights.Add(cl_SectorObject.TRADER);
+                            }
+                            for (int j = 0; j < sectorNum / 3; j++)
+                            {
+                                factionWeights.Add(cl_SectorObject.PIRATE);
+                            }
+                            if (factionWeights.Count > 0)
+                            {
+                                switch (factionWeights[Random.Range(0, factionWeights.Count)])
+                                {
+                                    case cl_SectorObject.PIRATE:
+                                        tempObjectList.Add(new cl_Station_Pirate());
+                                        break;
+                                    case cl_SectorObject.TRADER:
+                                        tempObjectList.Add(new cl_Station_Trader());
+                                        break;
+                                }
+                            }
                         }
-                        for (int j = 0; j < sectorNum / 3; j++)
+                        break;
+                    case cl_SectorObject.SHIP:
                         {
-                            typeWeights.Add(cl_SectorObject.PIRATE);
+                            List<string> factionWeights = new List<string>();
+                            for (int j = 0; j < 1 - ListObjectWithTagCount(tempObjectList, cl_SectorObject.TRADER); j++)
+                            {
+                                factionWeights.Add(cl_SectorObject.TRADER);
+                            }
+                            for (int j = 0; j < sectorNum - 1; j++)
+                            {
+                                factionWeights.Add(cl_SectorObject.PIRATE);
+                            }
+                            if (factionWeights.Count > 0)
+                            {
+                                switch (factionWeights[Random.Range(0, factionWeights.Count)])
+                                {
+                                    case cl_SectorObject.PIRATE:
+                                        tempObjectList.Add(new cl_Ship_Pirate());
+                                        break;
+                                    case cl_SectorObject.TRADER:
+                                        tempObjectList.Add(new cl_Ship_Trader());
+                                        break;
+                                }
+                            }
                         }
-                        switch (factionWeights[Random.Range(0, factionWeights.Count)])
+                        break;
+                    case cl_SectorObject.ASTEROID:
                         {
-                            case cl_SectorObject.PIRATE:
-                                tempObjectList.Add(new cl_Station_Pirate());
-                                break;
-                            case cl_SectorObject.TRADER:
-                                tempObjectList.Add(new cl_Station_Trader());
-                                break;
+                            tempObjectList.Add(new cl_Asteroid());
                         }
-                    }
-                    break;
-                case cl_SectorObject.SHIP:
-                    {
-                        List<string> factionWeights = new List<string>();
-                        for (int j = 0; j < 1 - ListObjectWithTagCount(tempObjectList, cl_SectorObject.TRADER); j++)
-                        {
-                            typeWeights.Add(cl_SectorObject.TRADER);
-                        }
-                        for (int j = 0; j < sectorNum - 1; j++)
-                        {
-                            typeWeights.Add(cl_SectorObject.PIRATE);
-                        }
-                        switch (factionWeights[Random.Range(0, factionWeights.Count)])
-                        {
-                            case cl_SectorObject.PIRATE:
-                                tempObjectList.Add(new cl_Ship_Pirate());
-                                break;
-                            case cl_SectorObject.TRADER:
-                                tempObjectList.Add(new cl_Ship_Trader());
-                                break;
-                        }
-                    }
-                    break;
-                case cl_SectorObject.ASTEROID:
-                    {
-                        tempObjectList.Add(new cl_Asteroid());
-                    }
-                    break;
+                        break;
+                }
             }
         }
 
