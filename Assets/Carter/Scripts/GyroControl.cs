@@ -68,7 +68,11 @@ public class GyroControl : MonoBehaviour {
             }*/
             foreach (cl_SectorObject obj in sectorObjects)
             {
-                float currAngle = Vector3.Angle(transform.forward, obj. - transform.position);
+                float relativeCurrentAngle = Vector3.Angle(transform.forward, obj.position - transform.position);
+                if(relativeCurrentAngle <= angle)
+                {
+                    //Lock on
+                }
             }
 
         }
