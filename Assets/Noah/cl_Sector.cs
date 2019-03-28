@@ -18,4 +18,12 @@ public class cl_Sector {
         sectorNum = SectorNum;
         sectorObjects = SectorObjects;
     }
+
+    public void Update()
+    {
+        for(int i = 0; i < sectorObjects.Count; i++)
+        {
+            sectorObjects[i].Update(this);
+        }
+    }
 }

@@ -15,7 +15,7 @@ public class cl_Ship_Trader : cl_SectorObject
         tags.Add(TRADER);
     }
 
-    override public void Update()
+    override public void Update(cl_Sector Sector)
     {
 
     }

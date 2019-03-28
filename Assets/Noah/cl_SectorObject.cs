@@ -37,7 +37,7 @@ abstract public class cl_SectorObject
 
     }
 
-    abstract public void Update();
+    abstract public void Update(cl_Sector Sector);
 
     abstract public T GetVar<T>(string Name);
 

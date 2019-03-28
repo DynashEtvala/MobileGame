@@ -14,7 +14,7 @@ public class cl_Ship_Pirate : cl_SectorObject
         tags.Add(PIRATE);
     }
 
-    override public void Update()
+    override public void Update(cl_Sector Sector)
     {
 
     }

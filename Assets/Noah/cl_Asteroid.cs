@@ -13,7 +13,7 @@ public class cl_Asteroid : cl_SectorObject
         tags.Add(ASTEROID);
     }
 
-    override public void Update()
+    override public void Update(cl_Sector Sector)
     {
 
     }

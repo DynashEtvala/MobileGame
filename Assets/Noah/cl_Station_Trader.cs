@@ -9,13 +9,24 @@ public class cl_Station_Trader : cl_SectorObject
     public const string OPENSHOP = "OpenShop";
     public const string ATTACKSHIP = "AttackShip";
 
+    //Constructors
     public cl_Station_Trader() : base()
     {
         tags.Add(STATION);
         tags.Add(TRADER);
     }
 
-    override public void Update()
+    public cl_Station_Trader(Vector3 Position) : this()
+    {
+        position = Position;
+    }
+
+    public cl_Station_Trader(Vector3 Position, int SectorNum) : this(Position)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    override public void Update(cl_Sector Sector)
     {
 
     }
