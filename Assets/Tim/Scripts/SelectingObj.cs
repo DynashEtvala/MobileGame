@@ -13,7 +13,7 @@ public class SelectingObj : MonoBehaviour
     public int health;
     void Start()
     {
-        for(int t = 0; t < Compnents.Count; t++)
+        for (int t = 0; t < Compnents.Count; t++)
         {
             Compnents[t].transform.gameObject.GetComponent<Renderer>().material.color = Color.green;
         }
@@ -22,14 +22,14 @@ public class SelectingObj : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 touchPosFar = new Vector3(Input.mousePosition.x,Input.mousePosition.y,cam.farClipPlane);
+            Vector3 touchPosFar = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.farClipPlane);
             Vector3 touchPosNear = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.nearClipPlane);
             Vector3 touchPosF = cam.ScreenToWorldPoint(touchPosFar);
             Vector3 touchPosN = cam.ScreenToWorldPoint(touchPosNear);
             RaycastHit hit;
-            
+
             if (Physics.Raycast(touchPosN, touchPosF - touchPosN, out hit))
-            { 
+            {
                 for (int i = 0; i < tagValue.Capacity; i++)
                 {
                     if (hit.transform.gameObject.tag == tagValue[i] && tagValue[i] != "Fire")
@@ -52,19 +52,19 @@ public class SelectingObj : MonoBehaviour
                     }
                     if (hit.transform.gameObject.tag == tagValue[i] && tagValue[i] == "Fire")
                     {
-                        int randHitVal = Random.Range(minval, maxval + 1);
+                        int randHitVal = Random.Range(minval, maxval);
                         if (hitval == randHitVal)
                         {
                             Debug.Log("Hit");
-                            int randDmg = Random.Range(1, 100);
-                            health = health - randDmg;
-                            int randomComp = Random.Range(0, Compnents.Count + 1);
+                            health = health - 4;
+                            int randomComp = Random.Range(0, Compnents.Count);
+                            Debug.Log(randomComp);
                             Handheld.Vibrate();
-                            if (health < 100)
+                            if (health < 1000)
                             {
                                 if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.green)
                                 {
-                                    Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f,1);
+                                    Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
                                     break;
                                 }
                                 if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(1.0f, 0.39f, 0, 1))
@@ -77,21 +77,48 @@ public class SelectingObj : MonoBehaviour
                                     Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.black;
                                     break;
                                 }
-                                else
+                                if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.black)
                                 {
                                     break;
                                 }
-                                 
                             }
-                           }
+
+                            else
+                            {
+                                break;
+                            }
+
+                        }
                         else
                         {
                             Debug.Log("Miss");
                         }
+                    }
+                    if (hit.transform.gameObject.tag == tagValue[i] && tagValue[i] == "Repair")
+                    {
+                        int DamagedComp = Random.Range(0, Compnents.Count);
+                        if (Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.black)
+                        {
+                            Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(0.59f, 0.0f, 0, 1);
+                            break;
                         }
+                        if (Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(0.59f, 0.0f, 0, 1))
+                        {
+                            Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
+                            break;
+                        }
+                        if (Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(1.0f, 0.39f, 0.0f, 1))
+                        {
+                            Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                            break;
+                        }
+                        else
+                        {
+                            Debug.Log("All Repaired");
+                        }
+                    }
                 }
             }
         }
     }
-
 }
