@@ -21,6 +21,7 @@ public class GyroControl : MonoBehaviour {
     //Data oriented method
     private GameObject objectManager;
     private scr_SectorController sectorController;
+    private cl_Sector currSector;
     private List<cl_SectorObject> sectorObjects;
     
 
@@ -36,7 +37,12 @@ public class GyroControl : MonoBehaviour {
         //}
         objectManager = GameObject.FindGameObjectWithTag("GameManager");
         sectorController = objectManager.GetComponent<scr_SectorController>();
-        
+        currSector = sectorController.currSector;
+        sectorObjects = currSector.sectorObjects;
+        foreach(cl_SectorObject obj in sectorObjects)
+        {
+            Debug.Log(obj.ToString());
+        }
 	}
 
     void Update()
@@ -70,7 +76,7 @@ public class GyroControl : MonoBehaviour {
             }*/
             foreach (cl_SectorObject obj in sectorObjects)
             {
-                float relativeCurrentAngle = Vector3.Angle(transform.forward, obj.position - transform.position);
+                float relativeCurrentAngle = Vector3.Angle(transform.forward, obj.position);
                 if(relativeCurrentAngle <= angle)
                 {
                     //Lock on
