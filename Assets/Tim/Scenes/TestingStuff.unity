@@ -600,8 +600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed47622ab2b67f240ad83bf44fff1627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxval: 7
-  hitval: 2
+  maxVal: 5
+  hit: 2
   cam: {fileID: 29377569}
   tagValue:
   - Sensor
@@ -614,7 +614,7 @@ MonoBehaviour:
   - {fileID: 1874306304}
   - {fileID: 658125232}
   - {fileID: 2136412862}
-  health: 1000
+  StartingHealth: 100
 --- !u!224 &899928588
 RectTransform:
   m_ObjectHideFlags: 0
