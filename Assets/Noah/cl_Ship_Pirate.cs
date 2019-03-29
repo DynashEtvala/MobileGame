@@ -20,13 +20,13 @@ public class cl_Ship_Pirate : cl_SectorObject
     {
         tags.Add(SHIP);
         tags.Add(PIRATE);
+        direction = Random.onUnitSphere;
+        speed = Random.Range(0.5f, 1.5f);
     }
 
     public cl_Ship_Pirate(Vector3 Position) : this()
     {
         position = Position;
-        direction = Random.onUnitSphere;
-        speed = Random.Range(0.5f, 1.5f);
     }
 
     public cl_Ship_Pirate(Vector3 Position, int SectorNum) : this(Position)

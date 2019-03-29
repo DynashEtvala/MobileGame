@@ -5,16 +5,27 @@ using UnityEngine;
 public class scr_SectorController : MonoBehaviour {
     public cl_Sector currSector;
     public int sectorNum;
+    public GameObject sectorObjectPrefab;
+    public List<GameObject> sectorObjects;
 
 	// Use this for initialization
 	void Start () {
         sectorNum = 0;
         currSector = GenerateSector();
+        sectorObjects = new List<GameObject>();
+        for(int i = 0; i < 5; i++)
+        {
+            sectorObjects.Add(Instantiate(sectorObjectPrefab));
+        }
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+		for(int i = 0; i < sectorObjects.Count; i++)
+        {
+            sectorObjects[i].transform.position = currSector.sectorObjects[i].position;
+        }
 	}
 
     private cl_Sector GenerateSector()
@@ -77,7 +88,7 @@ public class scr_SectorController : MonoBehaviour {
                             {
                                 factionWeights.Add(cl_SectorObject.TRADER);
                             }
-                            for (int j = 0; j < sectorNum - 1; j++)
+                            for (int j = 0; j < sectorNum + 10; j++)
                             {
                                 factionWeights.Add(cl_SectorObject.PIRATE);
                             }
