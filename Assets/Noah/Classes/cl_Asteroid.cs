@@ -8,7 +8,7 @@ public class cl_Asteroid : cl_SectorObject
     //Method Names
     public const string MINERESOURCES = "MineResources";
 
-    public cl_Asteroid()
+    public cl_Asteroid() : base()
     {
         tags.Add(ASTEROID);
     }

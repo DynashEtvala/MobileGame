@@ -3,21 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class cl_Ship_Trader : cl_SectorObject
+public class cl_Ship_Pirate : cl_SectorObject
 {
+    //Variable Names
+    public const string DIRECTION = "Direction";
+    public const string SPEED = "Speed";
+
     //Method Names
-    public const string OPENSHOP = "OpenShop";
     public const string ATTACKSHIP = "AttackShip";
 
-    public cl_Ship_Trader()
+    //Variables
+    Vector3 direction;
+    float speed;
+
+    public cl_Ship_Pirate()
     {
         tags.Add(SHIP);
-        tags.Add(TRADER);
+        tags.Add(PIRATE);
+        direction = Random.onUnitSphere;
+        speed = Random.Range(0.75f, 1.25f);
+    }
+
+    public cl_Ship_Pirate(Vector3 Position) : this()
+    {
+        position = Position;
+    }
+
+    public cl_Ship_Pirate(Vector3 Position, int SectorNum) : this(Position)
+    {
+        throw new System.NotImplementedException();
     }
 
     override public void Update(cl_Sector Sector)
     {
-
+        position += direction * speed * Time.deltaTime;
     }
 
     //Generic Call Methods
@@ -62,9 +81,6 @@ public class cl_Ship_Trader : cl_SectorObject
     {
         switch (Name)
         {
-            case OPENSHOP:
-                OpenShop();
-                break;
             case ATTACKSHIP:
                 if (args[0] is cl_SectorObject && args[1] is int)
                 {
@@ -77,11 +93,6 @@ public class cl_Ship_Trader : cl_SectorObject
     }
 
     //Class Methods
-    public void OpenShop()
-    {
-
-    }
-
     public void AttackShip(cl_SectorObject Target, int Weapon)
     {
 

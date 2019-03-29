@@ -9,22 +9,24 @@ public class scr_SectorController : MonoBehaviour {
     public List<GameObject> sectorObjects;
 
 	// Use this for initialization
-	void Start () {
-        sectorNum = 0;
-        currSector = GenerateSector();
+	void Start ()
+    {
         sectorObjects = new List<GameObject>();
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++)
         {
             sectorObjects.Add(Instantiate(sectorObjectPrefab));
         }
+        sectorNum = 0;
+        currSector = GenerateSector();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        currSector.Update();
 		for(int i = 0; i < sectorObjects.Count; i++)
         {
-            sectorObjects[i].transform.position = currSector.sectorObjects[i].position;
+            sectorObjects[i].transform.position = currSector.sectorObjects[i].position * 0.1f;
         }
 	}
 
@@ -84,11 +86,11 @@ public class scr_SectorController : MonoBehaviour {
                     case cl_SectorObject.SHIP:
                         {
                             List<string> factionWeights = new List<string>();
-                            for (int j = 0; j < 1 - ListObjectWithTagCount(tempObjectList, cl_SectorObject.TRADER); j++)
+                            for (int j = 0; j < 2 - ListObjectWithTagCount(tempObjectList, cl_SectorObject.TRADER); j++)
                             {
                                 factionWeights.Add(cl_SectorObject.TRADER);
                             }
-                            for (int j = 0; j < sectorNum + 10; j++)
+                            for (int j = 0; j < sectorNum + - 1; j++)
                             {
                                 factionWeights.Add(cl_SectorObject.PIRATE);
                             }
@@ -112,6 +114,22 @@ public class scr_SectorController : MonoBehaviour {
                         }
                         break;
                 }
+            }
+        }
+
+        for(int i = 0; i < objectGenCount; i++)
+        {
+            if (tempObjectList[i].tags.Contains(cl_SectorObject.ASTEROID))
+            {
+                sectorObjects[i].GetComponent<Renderer>().material.color = Color.black;
+            }
+            else if (tempObjectList[i].tags.Contains(cl_SectorObject.TRADER))
+            {
+                sectorObjects[i].GetComponent<Renderer>().material.color = Color.cyan;
+            }
+            else if (tempObjectList[i].tags.Contains(cl_SectorObject.PIRATE))
+            {
+                sectorObjects[i].GetComponent<Renderer>().material.color = Color.red;
             }
         }
 

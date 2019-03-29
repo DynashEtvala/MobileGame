@@ -29,7 +29,9 @@ abstract public class cl_SectorObject
     public cl_SectorObject()
     {
         tags = new List<string>();
-        position = Vector3.zero;
+        position = Random.insideUnitSphere * 100;
+        hp = hpMax = 0;
+        shield = shieldMax = 0;
     }
 
     public cl_SectorObject(List<string> Tags, Vector3 Position)
