@@ -679,9 +679,9 @@ MonoBehaviour:
   - {fileID: 1874306304}
   - {fileID: 658125232}
   - {fileID: 2136412862}
-  maxVal: 4
+  maxVal: 2
   hit: 2
-  Charge: 75
+  Charge: 2
 --- !u!1 &1725279411
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,6 +924,15 @@ Prefab:
       propertyPath: Compnents.Array.data[8]
       value: 
       objectReference: {fileID: 2136412862}
+    - target: {fileID: 1010193809591706, guid: b7adae2225477594daf6c956d8a32f21, type: 2}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 114869273502838666, guid: b7adae2225477594daf6c956d8a32f21,
+        type: 2}
+      propertyPath: healthRemaining
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7adae2225477594daf6c956d8a32f21, type: 2}
   m_IsPrefabAsset: 0
