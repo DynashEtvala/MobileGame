@@ -11,7 +11,7 @@ public class PlayerCommands : MonoBehaviour
     public List<string> tagValue;
     public List<GameObject> Compnents;
     public int StartingHealth;
-    int healthRemaining; 
+    public int healthRemaining; 
     void Start()
     {
         for (int t = 0; t < Compnents.Count; t++)
