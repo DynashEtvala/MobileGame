@@ -14,10 +14,6 @@ public class GyroControl : MonoBehaviour {
     [SerializeField]
     private GameObject cameraContainer;
 
-    //Game object method
-    private GameObject[] detectableObjects;
-    public List<Transform> detectableObjectsTransforms;
-
     //Data oriented method
     private GameObject objectManager;
     private scr_SectorController sectorController;
@@ -30,22 +26,10 @@ public class GyroControl : MonoBehaviour {
         cameraContainer.transform.position = transform.position;
         transform.SetParent(cameraContainer.transform);
         gyroEnabled = EnableGyro();
-        //detectableObjects = GameObject.FindGameObjectsWithTag("detectableObject");
-        //foreach(GameObject obj in detectableObjects)
-        //{
-        //    detectableObjectsTransforms.Add(obj.transform);
-        //}
         objectManager = GameObject.FindGameObjectWithTag("GameManager");
         sectorController = objectManager.GetComponent<scr_SectorController>();
         currSector = sectorController.currSector;
         sectorObjects = currSector.sectorObjects;
-        foreach(cl_SectorObject obj in sectorObjects)
-        {
-            Debug.Log(obj.ToString());
-            obj.position.y = -10;
-            Debug.Log(obj.position);
-        }
-        sectorObjects[0].position.y = 10;
 	}
 
     void Update()
@@ -53,30 +37,6 @@ public class GyroControl : MonoBehaviour {
         if (gyroEnabled)
         {
             transform.localRotation = gyro.attitude * rotatation;
-            /*foreach (Transform t in detectableObjectsTransforms)
-            {
-                float currAngle = Vector3.Angle(transform.forward, t.position - transform.position);
-                if (currAngle < angle)
-                {
-                    t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-                }
-                else if (currAngle < angle + 5.0f)
-                {
-                    t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.8f);
-                }
-                else if (currAngle < angle + 7.0f)
-                {
-                    t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-                }
-                else if (currAngle < angle + 10.0f)
-                {
-                    t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.25f);
-                }
-                else
-                {
-                    t.GetComponentInParent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0f);
-                }
-            }*/
             foreach (cl_SectorObject obj in sectorObjects)
             {
                 float relativeCurrentAngle = Vector3.Angle(transform.forward, obj.position);
