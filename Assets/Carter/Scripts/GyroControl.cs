@@ -12,34 +12,67 @@ public class GyroControl : MonoBehaviour {
     [SerializeField]
     float angle;
     [SerializeField]
-    private GameObject cameraContainer;
+    private GameObject gyroContainer;
 
     //Data oriented method
     private GameObject objectManager;
     private scr_SectorController sectorController;
     private cl_Sector currSector;
     private List<cl_SectorObject> sectorObjects;
+    private List<GameObject> sectorObjectsVis;
+    public List<GameObject> blips;
+    private Plane hitPlane;
+
+    bool test;
+    float testF;
     
 
 	void Start () {
-        cameraContainer = new GameObject("CameraContainer");
-        cameraContainer.transform.position = transform.position;
-        transform.SetParent(cameraContainer.transform);
+        gyroContainer = new GameObject("Gyro Container");
+        gyroContainer.transform.position = transform.position;
+        transform.SetParent(gyroContainer.transform);
         gyroEnabled = EnableGyro();
         objectManager = GameObject.FindGameObjectWithTag("GameManager");
         sectorController = objectManager.GetComponent<scr_SectorController>();
         currSector = sectorController.currSector;
         sectorObjects = currSector.sectorObjects;
+        sectorObjectsVis = sectorController.sectorObjects;
+        hitPlane = new Plane(transform.forward, transform.forward * 1f);
 	}
 
     void Update()
     {
         if (gyroEnabled)
         {
-            transform.localRotation = gyro.attitude * rotatation;
-            foreach (cl_SectorObject obj in sectorObjects)
+            sectorObjectsVis = sectorController.sectorObjects;
+            if (!test)
             {
-                float relativeCurrentAngle = Vector3.Angle(transform.forward, obj.position);
+                foreach (GameObject obj in sectorObjectsVis)
+                {
+                    blips.Add(new GameObject("Blip"));
+                }
+                test = true;
+            }
+
+            
+
+            transform.localRotation = gyro.attitude * rotatation;
+            hitPlane.SetNormalAndPosition(transform.forward, transform.forward * 1f);
+
+
+            Debug.DrawLine(transform.position, hitPlane.ClosestPointOnPlane(transform.position), Color.magenta, 0.0f, false);
+
+            for (int i = 0; i < sectorObjectsVis.Count; i++)
+            {
+                Debug.DrawLine(transform.position, sectorObjectsVis[i].transform.position, Color.red, 0.0f, false);
+
+                Ray ray = new Ray(transform.position, sectorObjectsVis[i].transform.position);
+                hitPlane.Raycast(ray, out testF);
+                Debug.Log(testF);
+
+                blips[i].transform.position = new Vector3(sectorObjectsVis[i].transform.position.x, sectorObjectsVis[i].transform.position.y, sectorObjectsVis[i].transform.position.z);
+
+                float relativeCurrentAngle = Vector3.Angle(transform.forward, sectorObjectsVis[i].transform.position);
                 if(relativeCurrentAngle <= angle)
                 {
                     //Lock on
@@ -79,7 +112,7 @@ public class GyroControl : MonoBehaviour {
         {
             gyro = Input.gyro;
             gyro.enabled = true;
-            cameraContainer.transform.rotation = Quaternion.Euler(90f, 90f, 0f);
+            gyroContainer.transform.rotation = Quaternion.Euler(90f, 90f, 0f);
             rotatation = new Quaternion(0f, 0f, 1f, 0f);
             return true;
         }
