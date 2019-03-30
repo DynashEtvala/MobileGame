@@ -9,14 +9,16 @@ public class PlayerCommands : MonoBehaviour
     public int hit;
     public Camera cam;
     public List<string> tagValue;
-    public List<GameObject> Compnents;
+    public List<GameObject> Components;
+    public int DamagedComps;
+    GameObject enemy;
     public int StartingHealth;
     public int healthRemaining; 
     void Start()
     {
-        for (int t = 0; t < Compnents.Count; t++)
+        for (int t = 0; t < Components.Count; t++)
         {
-            Compnents[t].transform.gameObject.GetComponent<Renderer>().material.color = Color.green;
+            Components[t].transform.gameObject.GetComponent<Renderer>().material.color = Color.green;
         }
         healthRemaining = StartingHealth;
     }
@@ -59,39 +61,42 @@ public class PlayerCommands : MonoBehaviour
                         {
                             Debug.Log("Hit");
                             healthRemaining = healthRemaining - 10;
-                            int randomComp = Random.Range(0, Compnents.Count);
+                            int randomComp = Random.Range(0, Components.Count);
                             Debug.Log(randomComp);
                             Handheld.Vibrate();
                             if (healthRemaining < StartingHealth && healthRemaining != 0)
                             {
-                                if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.green)
+                                if (Components[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.green)
                                 {
-                                    Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
+                                    Components[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
                                     Debug.Log("100% Health");
                                     break;
                                 }
-                                if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(1.0f, 0.39f, 0, 1))
+                                if (Components[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(1.0f, 0.39f, 0, 1))
                                 {
-                                    Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(0.59f, 0.0f, 0, 1);
+                                    Components[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(0.59f, 0.0f, 0, 1);
                                     Debug.Log("50% Health");
                                     break;
                                 }
-                                if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(0.59f, 0.0f, 0, 1))
+                                if (Components[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(0.59f, 0.0f, 0, 1))
                                 {
-                                    Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                                    Components[randomComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.black;
                                     Debug.Log("25% Health");
                                     break;
                                 }
-                                if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.black)
+                                if (Components[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.black)
                                 {
+
+
                                     Debug.Log("0% Health");
                                     break;
                                 }
                             }
 
-                            else if(healthRemaining < 0)
+                            else if(healthRemaining <= 0)
                             {
                                 Debug.Log("You Lose");
+                                Components[0].transform.gameObject.GetComponent<Renderer>().material.color = new Color(0, 0, 0, 0);
                                 break;
                             }
 
@@ -103,22 +108,22 @@ public class PlayerCommands : MonoBehaviour
                     }
                     if (rayHit.transform.gameObject.tag == tagValue[i] && tagValue[i] == "Repair" && healthRemaining > 0)
                     {
-                        int DamagedComp = Random.Range(0, Compnents.Count);
-                        if (Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.black)
+                        DamagedComps = Random.Range(0, Components.Count);
+                        if (Components[DamagedComps].transform.gameObject.GetComponent<Renderer>().material.color == Color.black)
                         {
-                            Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(0.59f, 0.0f, 0, 1);
+                            Components[DamagedComps].transform.gameObject.GetComponent<Renderer>().material.color = new Color(0.59f, 0.0f, 0, 1);
                             Debug.Log("25% Health");
                             break;
                         }
-                        if (Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(0.59f, 0.0f, 0, 1))
+                        if (Components[DamagedComps].transform.gameObject.GetComponent<Renderer>().material.color == new Color(0.59f, 0.0f, 0, 1))
                         {
-                            Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
+                            Components[DamagedComps].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
                             Debug.Log("50% Health");
                             break;
                         }
-                        if (Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color == new Color(1.0f, 0.39f, 0.0f, 1))
+                        if (Components[DamagedComps].transform.gameObject.GetComponent<Renderer>().material.color == new Color(1.0f, 0.39f, 0.0f, 1))
                         {
-                            Compnents[DamagedComp].transform.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                            Components[DamagedComps].transform.gameObject.GetComponent<Renderer>().material.color = Color.green;
                             Debug.Log("100% Health");
                             break;
                         }
