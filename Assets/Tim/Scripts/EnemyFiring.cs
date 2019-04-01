@@ -5,82 +5,45 @@ using UnityEngine;
 public class EnemyFiring : MonoBehaviour {
 
     public List<GameObject> playerComponents;
-    public int playerDamagedComps;
-    int fireAt;
+    int minval = 1;
+    public int maxVal;
+    public int hit;
     float timer;
     public float Charge;
     GameObject player;
+    public float playerHealthRemain;
+    int playerHealth;
     void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerComponents = player.GetComponent<PlayerCommands>().Components;
+        playerHealth = player.GetComponent<PlayerCommands>().StartingHealth;
+        playerHealthRemain = player.GetComponent<PlayerCommands>().healthRemaining;
+        playerHealthRemain = playerHealth;
     }
 
     // Update is called once per frame
     void Update ()
     {
         timer = timer + Time.deltaTime;
-        player.GetComponent<PlayerCommands>().DamagedComps = playerDamagedComps;
-        if (timer < Charge)
+		if(timer < Charge)
         {
             Debug.Log("Not Firing");
         }
         if(timer > Charge)
         {
-            if (playerComponents[fireAt].transform.gameObject.GetComponent<Renderer>().material.color != Color.green && playerDamagedComps < 4)
+            for (int i = 0; i < playerComponents.Count; i++)
             {
-                   if (timer < 2 || timer > 1)
-                   {
-                        player.GetComponent<PlayerCommands>().healthRemaining = player.GetComponent<PlayerCommands>().healthRemaining - 1;
-                        timer = 0.0f;
-                        return;
-
-                   }
-            }
-            //Color is equal to black but with the DamagedComponents is equal to 4
-            if (playerComponents[fireAt].transform.gameObject.GetComponent<Renderer>().material.color != Color.green && playerDamagedComps == 4)
-            {
-                    if (timer < 2 || timer > 1)
-                    {
-                    player.GetComponent<PlayerCommands>().healthRemaining = player.GetComponent<PlayerCommands>().healthRemaining - 4;
+                if (playerComponents[i].transform.gameObject.GetComponent<Renderer>().material.color != Color.green)
+                {
+                    playerHealthRemain = playerHealthRemain - Time.deltaTime;
+                }
+                if (playerComponents[i].transform.gameObject.GetComponent<Renderer>().material.color == Color.green)
+                {
+                    playerComponents[i].transform.gameObject.GetComponent<Renderer>().material.color = Color.red;
                     timer = 0.0f;
-                    return;
-
-                    }
-            }
-            if (playerComponents[fireAt].transform.gameObject.GetComponent<Renderer>().material.color == Color.green && playerDamagedComps <= 0)
-            {
-                    playerComponents[fireAt].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
-                    playerDamagedComps = playerDamagedComps + 1;
-                    player.GetComponent<PlayerCommands>().DamagedComps = playerDamagedComps;
-                    timer = 0.0f;
-                    return;
-            }
-            if (playerComponents[fireAt].transform.gameObject.GetComponent<Renderer>().material.color == Color.green && playerDamagedComps >= 0)
-            {
-                playerComponents[fireAt].transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
-                playerDamagedComps = playerDamagedComps - 1;
-                player.GetComponent<PlayerCommands>().DamagedComps = playerDamagedComps;
-                timer = 0.0f;
-                return;
-            }
-            if (playerComponents[fireAt].transform.gameObject.GetComponent<Renderer>().material.color == new Color(1.0f, 0.39f, 0.0f, 1))
-            {
-                    playerComponents[fireAt].transform.gameObject.GetComponent<Renderer>().material.color = new Color(0.59f, 0.0f, 0, 1);
-                    timer = 0.0f;
-                    return;
-            }
-            if (playerComponents[fireAt].transform.gameObject.GetComponent<Renderer>().material.color == new Color(0.59f, 0.0f, 0, 1))
-            {
-                    playerComponents[fireAt].transform.gameObject.GetComponent<Renderer>().material.color = Color.black;
-                    timer = 0.0f;
-                    return;
+                    break;
+                }
             }
         }
-        if(player.GetComponent<PlayerCommands>().healthRemaining <= 0)
-        {
-            timer = Charge;
-            player.gameObject.SetActive(false);
-        }
-    }
+     }
 }
