@@ -4,8 +4,9 @@ using UnityEngine;
 public class EnemyFiring : MonoBehaviour
 {
 
-    public List<MyItem> playerComponents;
-    float timer;
+    public List<Component> playerComponents;
+    [HideInInspector]
+    public int timer;
     public float Reload;
     int bulletsFired;
     public int Capacity;
@@ -29,7 +30,7 @@ public class EnemyFiring : MonoBehaviour
         if (playerCom.Lose(playerHealthRemain) == false)
         {
             int randNumber = Random.Range(0, playerComponents.Count);
-            timer = timer + Time.deltaTime;
+            timer = timer + 1;
             if (timer < Reload)
             {
                 Debug.Log("Not Firing");
@@ -40,6 +41,8 @@ public class EnemyFiring : MonoBehaviour
                 {
                     playerComponents[randNumber].Obj.transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
                     playerComponents[randNumber].DmgTaken = 1;
+                    playerHealthRemain = playerHealthRemain - 2;
+                    player.GetComponent<PlayerCommands>().healthRemaining = playerHealthRemain;
                     playerCom.score.scoreVal = playerCom.score.scoreVal - 10;
                     timer = 0;
                     return;
@@ -48,6 +51,8 @@ public class EnemyFiring : MonoBehaviour
                 {
                     playerComponents[randNumber].Obj.transform.gameObject.GetComponent<Renderer>().material.color = new Color(0.59f, 0.0f, 0, 1);
                     playerComponents[randNumber].DmgTaken = 2;
+                    playerHealthRemain = playerHealthRemain - 4;
+                    player.GetComponent<PlayerCommands>().healthRemaining = playerHealthRemain;
                     playerCom.score.scoreVal = playerCom.score.scoreVal - 20;
                     timer = 0;
                     return;
@@ -56,12 +61,20 @@ public class EnemyFiring : MonoBehaviour
                 {
                     playerComponents[randNumber].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.black;
                     playerComponents[randNumber].DmgTaken = 3;
+                    playerHealthRemain = playerHealthRemain - 6;
+                    player.GetComponent<PlayerCommands>().healthRemaining = playerHealthRemain;
                     playerCom.score.scoreVal = playerCom.score.scoreVal - 30;
                     timer = 0;
                     return;
                 }
                 if (playerComponents[randNumber].DmgTaken == 3)
                 {
+                    playerComponents[randNumber].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.gray;
+                    playerComponents[randNumber].DmgTaken = 4;
+                    playerCom.grayedComponents = playerCom.grayedComponents + 1;
+                    randNumber = Random.Range(0, playerComponents.Count - playerCom.grayedComponents);
+                    playerCom.score.scoreVal = playerCom.score.scoreVal - 40;
+                    timer = 0;
                     if (bulletsFired >= 0 && bulletsFired <= Capacity)
                     {
                         int DmgDealt = Random.Range(0,50);
@@ -78,11 +91,11 @@ public class EnemyFiring : MonoBehaviour
                 }
                 if (playerComponents[randNumber].DmgTaken == 4)
                 {
-                    playerComponents[randNumber].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.gray;
-                    playerComponents[randNumber].DmgTaken = 4;
-                    playerCom.grayedComponents = playerCom.grayedComponents + 1;
-                    randNumber = Random.Range(0, playerComponents.Count - playerCom.grayedComponents);
-                    playerCom.score.scoreVal = playerCom.score.scoreVal - 40;
+                    Debug.Log("Component is Stuned");
+                    playerComponents[randNumber].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+                    timer = 0;
+                    return;
+
                 }
             }
         }

@@ -9,7 +9,7 @@ public class PlayerCommands : MonoBehaviour
     public int maxVal;
     public int hit;
     public Camera cam;
-    public List<MyItem> Components = new List<MyItem>();
+    public List<Component> Components = new List<Component>();
     public List<string> tagValue;
     public Score score;
     public int StartingHealth;
@@ -103,14 +103,6 @@ public class PlayerCommands : MonoBehaviour
                                         break;
                                     }
                                 }
-
-                                else if (healthRemaining < 0)
-                                {
-                                    Debug.Log("You Lose");
-                                    print(score.scoreVal);
-                                    break;
-                                }
-
                             }
                             else
                             {
@@ -145,14 +137,18 @@ public class PlayerCommands : MonoBehaviour
                                 Debug.Log("25% Health");
                                 break;
                             }
+                            if (Components[DamagedComp].DmgTaken == 4)
+                            {
+                                Components[DamagedComp].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                                Components[DamagedComp].DmgTaken = 2;
+                                score.scoreVal = score.scoreVal + 0;
+                                Debug.Log("10% Health");
+                                break;
+                            }
                         }
                     }
                 }
             }
-        }
-        else if(healthRemaining == 0)
-        {
-           
         }
     }
 public bool Lose(int health)
@@ -160,6 +156,7 @@ public bool Lose(int health)
         if(health <= 0)
         {
             Debug.Log("You Lose");
+            print(score.scoreVal);
             return true;
         }
         else
@@ -169,10 +166,12 @@ public bool Lose(int health)
     }
 }
 [System.Serializable]
-public class MyItem
+public class Component
 {
     public GameObject Obj;
     public int DmgTaken;
+    [HideInInspector]
+    public bool isStuned;
 }
 [System.Serializable]
 [HideInInspector]
