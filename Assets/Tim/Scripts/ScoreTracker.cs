@@ -11,7 +11,6 @@ public class ScoreTracker : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        scoreVal = 0;
         text.fontSize = 55;
         text.color = Color.white;
         text.resizeTextForBestFit = true;

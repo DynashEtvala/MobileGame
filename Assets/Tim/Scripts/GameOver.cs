@@ -17,7 +17,7 @@ public class GameOver : MonoBehaviour
         text.gameObject.SetActive(false);
         text.fontSize = 75;
         text.rectTransform.sizeDelta = new Vector2(687.6f, 177);
-        text.color = Color.red;
+        text.color = Color.white;
     }
 
     // Update is called once per frame
@@ -28,18 +28,20 @@ public class GameOver : MonoBehaviour
             text.gameObject.SetActive(false);
             uiElements[3].SetActive(false);
             uiElements[4].SetActive(false);
+            uiElements[5].SetActive(false);
         }
-            if (player.GetComponent<PlayerCommands>().Lose(player.GetComponent<PlayerCommands>().healthRemaining) == true)
+        if (player.GetComponent<PlayerCommands>().Lose(player.GetComponent<PlayerCommands>().healthRemaining) == true) 
         {
-            text.gameObject.SetActive(true);
+            player.SetActive(false);
             uiElements[0].SetActive(false);
             uiElements[1].SetActive(false);
             uiElements[2].SetActive(false);
             uiElements[3].SetActive(true);
-            uiElements[4].SetActive(false);
-            Destroy(player);
-            player.GetComponent<PlayerCommands>().score.scoreVal = scoreValue;
-            text.text = "Your Score Is: " + scoreValue;
+            uiElements[4].SetActive(true);
+            uiElements[5].SetActive(true);
+            text.gameObject.SetActive(true);
+            scoreValue = player.GetComponent<PlayerCommands>().score.scoreVal;
+            text.text = "Youy Have Fallen to the Void\n Your Final Score is: " + scoreValue;
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = Color.black;
         }

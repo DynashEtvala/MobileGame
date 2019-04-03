@@ -140,7 +140,7 @@ public class PlayerCommands : MonoBehaviour
                             if (Components[DamagedComp].DmgTaken == 4)
                             {
                                 Components[DamagedComp].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.black;
-                                Components[DamagedComp].DmgTaken = 2;
+                                Components[DamagedComp].DmgTaken = 3;
                                 score.scoreVal = score.scoreVal + 0;
                                 Debug.Log("10% Health");
                                 break;
@@ -152,11 +152,10 @@ public class PlayerCommands : MonoBehaviour
         }
     }
 public bool Lose(int health)
-    {
+{
         if(health <= 0)
         {
             Debug.Log("You Lose");
-            print(score.scoreVal);
             return true;
         }
         else
