@@ -65,7 +65,6 @@ public class PlayerCommands : MonoBehaviour
                                 healthRemaining = healthRemaining - 10;
                                 int randomComp = Random.Range(0, Components.Count);
                                 Debug.Log(randomComp);
-                                Handheld.Vibrate();
                                 if (healthRemaining < StartingHealth && healthRemaining != 0)
                                 {
                                     if (Components[randomComp].DmgTaken == 0)

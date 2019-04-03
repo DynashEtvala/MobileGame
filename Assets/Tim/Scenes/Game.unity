@@ -1515,6 +1515,31 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: QuitRequest
       objectReference: {fileID: 0}
+    - target: {fileID: 114344906507748134, guid: 3ae6f95ade0f3f748be540258f101d11,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 114649740903419592, guid: 3ae6f95ade0f3f748be540258f101d11,
+        type: 2}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223201798089754816, guid: 3ae6f95ade0f3f748be540258f101d11,
+        type: 2}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224908205347074774, guid: 3ae6f95ade0f3f748be540258f101d11,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1.2250187
+      objectReference: {fileID: 0}
+    - target: {fileID: 224908205347074774, guid: 3ae6f95ade0f3f748be540258f101d11,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1.025002
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ae6f95ade0f3f748be540258f101d11, type: 2}
   m_IsPrefabParent: 0

@@ -61,7 +61,6 @@ public class scr_SelectingObj : MonoBehaviour
                             healthRemaining = healthRemaining - 4;
                             int randomComp = Random.Range(0, Compnents.Count);
                             Debug.Log(randomComp);
-                            Handheld.Vibrate();
                             if (healthRemaining < StartingHealth)
                             {
                                 if (Compnents[randomComp].transform.gameObject.GetComponent<Renderer>().material.color == Color.green)
