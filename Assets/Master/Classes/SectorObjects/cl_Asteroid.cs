@@ -15,7 +15,7 @@ public class cl_Asteroid : cl_SectorObject
 
     override public void Update(cl_Sector Sector)
     {
-
+        base.Update(Sector);
     }
 
     //Generic Call Methods
