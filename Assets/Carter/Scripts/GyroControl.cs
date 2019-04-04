@@ -21,10 +21,15 @@ public class GyroControl : MonoBehaviour {
     private List<cl_SectorObject> sectorObjects;
     private List<GameObject> sectorObjectsVis;
     public List<GameObject> blips;
+    public GameObject blipPrefab;
     private Plane hitPlane;
+    public float distanceToPlane;
+    public GameObject eye;
+    private Transform eyeTransform;
+    public GameObject quad;
+    private float distanceToQuad;
 
     bool test;
-    float testF;
     
 
 	void Start () {
@@ -37,7 +42,8 @@ public class GyroControl : MonoBehaviour {
         currSector = sectorController.currSector;
         sectorObjects = currSector.sectorObjects;
         sectorObjectsVis = sectorController.sectorObjects;
-        hitPlane = new Plane(transform.forward, transform.forward * 1f);
+        hitPlane = new Plane(transform.forward, transform.forward * distanceToPlane);
+        eyeTransform = eye.GetComponent<Transform>();
 	}
 
     void Update()
@@ -47,61 +53,34 @@ public class GyroControl : MonoBehaviour {
             sectorObjectsVis = sectorController.sectorObjects;
             if (!test)
             {
-                foreach (GameObject obj in sectorObjectsVis)
+                for (int i = 0; i < sectorObjectsVis.Count;i++)
                 {
-                    blips.Add(new GameObject("Blip"));
+                    blips.Add(GameObject.Instantiate(blipPrefab));
+                    blips[i].transform.SetParent(eyeTransform);
                 }
                 test = true;
             }
 
-            
+            distanceToQuad = quad.transform.position.z - transform.position.z;
 
             transform.localRotation = gyro.attitude * rotatation;
-            hitPlane.SetNormalAndPosition(transform.forward, transform.forward * 1f);
+            hitPlane.SetNormalAndPosition(transform.forward, transform.forward * distanceToPlane);
+            
 
-
-            Debug.DrawLine(transform.position, hitPlane.ClosestPointOnPlane(transform.position), Color.magenta, 0.0f, false);
+            Debug.DrawLine(transform.position, hitPlane.ClosestPointOnPlane(transform.position), Color.red, 0.0f, false);
 
             for (int i = 0; i < sectorObjectsVis.Count; i++)
             {
-                Debug.DrawLine(transform.position, sectorObjectsVis[i].transform.position, Color.red, 0.0f, false);
+                //Debug.DrawLine(transform.position, sectorObjectsVis[i].transform.position, Color.red, 0.0f, false);
 
+                float distanceToObject;
                 Ray ray = new Ray(transform.position, sectorObjectsVis[i].transform.position);
-                hitPlane.Raycast(ray, out testF);
-                Debug.Log(testF);
+                hitPlane.Raycast(ray, out distanceToObject);
+                Vector3 v = ray.GetPoint(distanceToObject);
 
-                blips[i].transform.position = new Vector3(sectorObjectsVis[i].transform.position.x, sectorObjectsVis[i].transform.position.y, sectorObjectsVis[i].transform.position.z);
-
-                float relativeCurrentAngle = Vector3.Angle(transform.forward, sectorObjectsVis[i].transform.position);
-                if(relativeCurrentAngle <= angle)
-                {
-                    //Lock on
-                    Debug.Log("Lock On");
-                }
-                else if(relativeCurrentAngle <= angle + angle * 0.10f)
-                {
-                    //75% Lock on
-                    Debug.Log("75% Lock On");
-                }
-                else if(relativeCurrentAngle <= angle + angle * 0.50f)
-                {
-                    //50% Lock on
-                    Debug.Log("50% Lock On");
-                }
-                else if(relativeCurrentAngle <= angle + angle * 0.75f)
-                {
-                    //25% Lock on
-                    Debug.Log("25% Lock On");
-                }
-                else if(relativeCurrentAngle <= angle + angle)
-                {
-                    //10% Lock on
-                    Debug.Log("10% Lock On");
-                }
-                else
-                {
-                    //No Lock
-                }
+                eyeTransform.rotation = transform.rotation;
+                blips[i].transform.position = new Vector3(v.x, v.y, .5f);
+                eyeTransform.rotation = new Quaternion(0, 0, 0, 0);
             }
 
         }
