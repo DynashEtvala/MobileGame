@@ -32,6 +32,7 @@ public class cl_Ship_Player : cl_SectorObject
 
     override public void Update(cl_Sector Sector)
     {
+        base.Update(Sector);
         nuclearIntensity = scr_SystemVariableController.Volume;
         power = scr_SystemVariableController.Screen_Brightness;
         canConnectToSystems = scr_SystemVariableController.Wifi_Enabled;

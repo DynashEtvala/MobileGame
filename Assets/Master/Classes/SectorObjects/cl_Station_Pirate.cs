@@ -16,6 +16,7 @@ public class cl_Station_Pirate : cl_SectorObject
 
     override public void Update(cl_Sector Sector)
     {
+        base.Update(Sector);
 
     }
 

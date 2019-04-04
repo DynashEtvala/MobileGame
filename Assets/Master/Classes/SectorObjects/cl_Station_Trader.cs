@@ -28,7 +28,8 @@ public class cl_Station_Trader : cl_SectorObject
 
     override public void Update(cl_Sector Sector)
     {
-        
+        base.Update(Sector);
+
     }
 
     //Generic Call Methods

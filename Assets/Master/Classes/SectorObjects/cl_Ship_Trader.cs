@@ -24,6 +24,7 @@ public class cl_Ship_Trader : cl_SectorObject
     override public void Update(cl_Sector Sector)
     {
         position += direction * speed * Time.deltaTime;
+        base.Update(Sector);
     }
 
     //Generic Call Methods
