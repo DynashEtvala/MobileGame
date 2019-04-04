@@ -154,14 +154,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gyroEnabled: 0
-  rotatation: {x: 0, y: 0, z: 0, w: 0}
-  angle: 0
-  gyroContainer: {fileID: 0}
-  blips: []
-  blipPrefab: {fileID: 1048604719962108, guid: ab1880cd4944e0a4a85533b65eb68cad, type: 2}
   distanceToPlane: 1
-  eye: {fileID: 1775193548}
   quad: {fileID: 421715733}
+  eye: {fileID: 1775193548}
+  blipPrefab: {fileID: 1048604719962108, guid: ab1880cd4944e0a4a85533b65eb68cad, type: 2}
+  blips: []
 --- !u!1001 &348131160
 Prefab:
   m_ObjectHideFlags: 0
@@ -461,7 +458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1775193549}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -570,11 +567,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gyroEnabled: 0
-  rotatation: {x: 0, y: 0, z: 0, w: 0}
-  angle: 0
-  gyroContainer: {fileID: 0}
-  blips: []
-  blipPrefab: {fileID: 1048604719962108, guid: ab1880cd4944e0a4a85533b65eb68cad, type: 2}
   distanceToPlane: 0
-  eye: {fileID: 0}
   quad: {fileID: 0}
+  eye: {fileID: 0}
+  blipPrefab: {fileID: 1048604719962108, guid: ab1880cd4944e0a4a85533b65eb68cad, type: 2}
+  blips: []

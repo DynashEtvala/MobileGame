@@ -16,6 +16,9 @@ public class GyroControl : MonoBehaviour {
     public GameObject quad;
     public GameObject eye;
     public GameObject blipPrefab;
+    public GameObject dispScrnPrefab;
+    private GameObject dispScrn;
+    private TMPro.TextMeshProUGUI dispScrnInfo;
     private List<GameObject> sectorObjectsVis;
     public List<GameObject> blips;
 
@@ -77,7 +80,30 @@ public class GyroControl : MonoBehaviour {
 
                 if (Physics.Raycast(touchPosN, touchPosF - touchPosN, out rayHit))
                 {
-                    Debug.Log(blipToObjDict.ContainsKey(rayHit.transform.gameObject));
+                    if (!blipToObjDict.ContainsKey(rayHit.transform.gameObject))
+                    {
+                        Debug.Log("Not Dict");
+                    }
+                    else
+                    {
+                        cl_SectorObject temp = blipToObjDict[rayHit.transform.gameObject];
+                        
+                        if(dispScrn == null)
+                        {
+                            dispScrn = GameObject.Instantiate(dispScrnPrefab);
+                            
+                        }
+                        else
+                        {
+                            dispScrn.SetActive(true);
+                        }
+
+                            
+                        for (int i = 0; i < temp.tags.Count; i++)
+                        {
+                            Debug.Log(temp.tags[i]);
+                        }
+                    }
                 }
             }
 
