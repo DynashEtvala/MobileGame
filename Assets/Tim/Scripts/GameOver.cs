@@ -32,7 +32,6 @@ public class GameOver : MonoBehaviour
         }
         if (player.GetComponent<PlayerCommands>().Lose(player.GetComponent<PlayerCommands>().healthRemaining) == true) 
         {
-            player.SetActive(false);
             uiElements[0].SetActive(false);
             uiElements[1].SetActive(false);
             uiElements[2].SetActive(false);
@@ -41,7 +40,7 @@ public class GameOver : MonoBehaviour
             uiElements[5].SetActive(true);
             text.gameObject.SetActive(true);
             scoreValue = player.GetComponent<PlayerCommands>().score.scoreVal;
-            text.text = "Youy Have Fallen to the Void\n Your Final Score is: " + scoreValue;
+            text.text = "You Have Fallen to the Void\n Your Final Score is: " + scoreValue;
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = Color.black;
         }
