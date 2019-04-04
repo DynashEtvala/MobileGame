@@ -6,30 +6,43 @@ public class GyroControl : MonoBehaviour {
 
     [SerializeField]
     private bool gyroEnabled;
-    private Gyroscope gyro;
-    [SerializeField]
-    private Quaternion rotatation;
-    [SerializeField]
-    float angle;
-    [SerializeField]
-    private GameObject gyroContainer;
+    private bool firstRun;
+    public float distanceToPlane;
+    private float distanceToQuad;
 
-    //Data oriented method
+
+    private GameObject gyroContainer;
     private GameObject objectManager;
+    public GameObject quad;
+    public GameObject eye;
+    public GameObject blipPrefab;
+    public GameObject dispScrnPrefab;
+    private GameObject dispScrn;
+    private TMPro.TextMeshProUGUI dispScrnInfo;
+    private List<GameObject> sectorObjectsVis;
+    public List<GameObject> blips;
+
+    private Transform eyeTransform;
+
+    private Camera cam;
+
+    private Gyroscope gyro;
+
+    private Quaternion rotatation;
+
+    private Plane hitPlane;
+
     private scr_SectorController sectorController;
     private cl_Sector currSector;
     private List<cl_SectorObject> sectorObjects;
-    private List<GameObject> sectorObjectsVis;
-    public List<GameObject> blips;
-    private Plane hitPlane;
 
-    bool test;
-    float testF;
-    
+    private Dictionary<GameObject, cl_SectorObject> blipToObjDict = new Dictionary<GameObject, cl_SectorObject>();
 
 	void Start () {
         gyroContainer = new GameObject("Gyro Container");
+        gyroContainer.transform.rotation = Quaternion.Euler(90f, 90f, 0f);
         gyroContainer.transform.position = transform.position;
+        rotatation = new Quaternion(0f, 0f, 1f, 0f);
         transform.SetParent(gyroContainer.transform);
         gyroEnabled = EnableGyro();
         objectManager = GameObject.FindGameObjectWithTag("GameManager");
@@ -37,73 +50,100 @@ public class GyroControl : MonoBehaviour {
         currSector = sectorController.currSector;
         sectorObjects = currSector.sectorObjects;
         sectorObjectsVis = sectorController.sectorObjects;
-        hitPlane = new Plane(transform.forward, transform.forward * 1f);
-	}
+        hitPlane = new Plane(transform.forward, transform.forward * distanceToPlane);
+        eyeTransform = eye.GetComponent<Transform>();
+        cam = Camera.FindObjectOfType<Camera>();
+    }
 
     void Update()
     {
         if (gyroEnabled)
         {
             sectorObjectsVis = sectorController.sectorObjects;
-            if (!test)
+            if (!firstRun)
             {
-                foreach (GameObject obj in sectorObjectsVis)
+                for (int i = 0; i < sectorObjectsVis.Count;i++)
                 {
-                    blips.Add(new GameObject("Blip"));
+                    blips.Add(GameObject.Instantiate(blipPrefab));
+                    blipToObjDict.Add(blips[i], sectorObjects[i]);
                 }
-                test = true;
+                firstRun = true;
             }
 
-            
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 touchPosFar = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.farClipPlane);
+                Vector3 touchPosNear = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.nearClipPlane);
+                Vector3 touchPosF = cam.ScreenToWorldPoint(touchPosFar);
+                Vector3 touchPosN = cam.ScreenToWorldPoint(touchPosNear);
+                RaycastHit rayHit;
 
+                if (Physics.Raycast(touchPosN, touchPosF - touchPosN, out rayHit))
+                {
+                    if (!blipToObjDict.ContainsKey(rayHit.transform.gameObject))
+                    {
+                        Debug.Log("Not Dict");
+                    }
+                    else
+                    {
+                        cl_SectorObject temp = blipToObjDict[rayHit.transform.gameObject];
+                        
+                        if(dispScrn == null)
+                        {
+                            dispScrn = GameObject.Instantiate(dispScrnPrefab);
+                            
+                        }
+                        else
+                        {
+                            dispScrn.SetActive(true);
+                        }
+
+                            
+                        for (int i = 0; i < temp.tags.Count; i++)
+                        {
+                            Debug.Log(temp.tags[i]);
+                        }
+                    }
+                }
+            }
+
+            distanceToQuad = quad.transform.position.z - transform.position.z;
             transform.localRotation = gyro.attitude * rotatation;
-            hitPlane.SetNormalAndPosition(transform.forward, transform.forward * 1f);
+            hitPlane.SetNormalAndPosition(transform.forward, transform.forward * distanceToPlane);
 
-
-            Debug.DrawLine(transform.position, hitPlane.ClosestPointOnPlane(transform.position), Color.magenta, 0.0f, false);
+            Debug.DrawLine(transform.position, hitPlane.ClosestPointOnPlane(transform.position), Color.red, 0.0f, false);
 
             for (int i = 0; i < sectorObjectsVis.Count; i++)
             {
-                Debug.DrawLine(transform.position, sectorObjectsVis[i].transform.position, Color.red, 0.0f, false);
-
+                float distanceToObject;
                 Ray ray = new Ray(transform.position, sectorObjectsVis[i].transform.position);
-                hitPlane.Raycast(ray, out testF);
-                Debug.Log(testF);
 
-                blips[i].transform.position = new Vector3(sectorObjectsVis[i].transform.position.x, sectorObjectsVis[i].transform.position.y, sectorObjectsVis[i].transform.position.z);
-
-                float relativeCurrentAngle = Vector3.Angle(transform.forward, sectorObjectsVis[i].transform.position);
-                if(relativeCurrentAngle <= angle)
+                if (hitPlane.Raycast(ray, out distanceToObject))
                 {
-                    //Lock on
-                    Debug.Log("Lock On");
-                }
-                else if(relativeCurrentAngle <= angle + angle * 0.10f)
-                {
-                    //75% Lock on
-                    Debug.Log("75% Lock On");
-                }
-                else if(relativeCurrentAngle <= angle + angle * 0.50f)
-                {
-                    //50% Lock on
-                    Debug.Log("50% Lock On");
-                }
-                else if(relativeCurrentAngle <= angle + angle * 0.75f)
-                {
-                    //25% Lock on
-                    Debug.Log("25% Lock On");
-                }
-                else if(relativeCurrentAngle <= angle + angle)
-                {
-                    //10% Lock on
-                    Debug.Log("10% Lock On");
+                    Vector3 v = ray.GetPoint(distanceToObject);
+                    eyeTransform.rotation = transform.rotation;
+                    blips[i].transform.position = v;
+                    blips[i].transform.SetParent(eyeTransform, false);
+                    eyeTransform.rotation = new Quaternion(0, 0, 0, 0);
+                    blips[i].transform.SetParent(eyeTransform, true);
+                    Vector3 blipV = blips[i].transform.position;
+                    if (blipV.x < -0.5f ||
+                       blipV.x > 0.5f  ||
+                       blipV.y < -0.5f ||
+                       blipV.y > 0.5f)
+                    {
+                        blips[i].GetComponent<Renderer>().enabled = false;
+                    }
+                    else
+                    {
+                        blips[i].GetComponent<Renderer>().enabled = true;
+                    }
                 }
                 else
                 {
-                    //No Lock
+                    blips[i].GetComponent<Renderer>().enabled = false;
                 }
             }
-
         }
     }
 
@@ -112,8 +152,6 @@ public class GyroControl : MonoBehaviour {
         {
             gyro = Input.gyro;
             gyro.enabled = true;
-            gyroContainer.transform.rotation = Quaternion.Euler(90f, 90f, 0f);
-            rotatation = new Quaternion(0f, 0f, 1f, 0f);
             return true;
         }
         return false;
