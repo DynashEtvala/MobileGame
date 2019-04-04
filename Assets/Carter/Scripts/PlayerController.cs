@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour {
     int volume;
     float brightness;
     bool wifiEnabled;
-    int currency;
-    int score;
+    public int currency;
+    public int score;
 
 	// Use this for initialization
 	void Start () {
