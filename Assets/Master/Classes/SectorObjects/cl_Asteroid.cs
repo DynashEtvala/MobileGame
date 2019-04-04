@@ -7,7 +7,7 @@ public class cl_Asteroid : cl_SectorObject
 {
     //Method Names
     public const string MINERESOURCES = "MineResources";
-
+    public int currencyVal;
     public cl_Asteroid() : base()
     {
         tags.Add(ASTEROID);
@@ -76,5 +76,13 @@ public class cl_Asteroid : cl_SectorObject
     public string MineResources(int Weapon) //Needs to return something not sure what yet.
     {
         return null;
+    }
+    protected override void OnDestroy(cl_SectorObject Attacker)
+    {
+        base.OnDestroy(Attacker);
+        if (Attacker.tags.Contains(PLAYER))
+        {
+            Attacker.GetVar<PlayerController>(cl_Ship_Player.CONTROLLER).currency += currencyVal;
+        }
     }
 }

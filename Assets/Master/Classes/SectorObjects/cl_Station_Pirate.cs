@@ -7,7 +7,7 @@ public class cl_Station_Pirate : cl_SectorObject
 {
     //Method Names
     public const string ATTACKSHIP = "AttackShip";
-
+    public int currencyVal;
     public cl_Station_Pirate()
     {
         tags.Add(STATION);
@@ -77,5 +77,13 @@ public class cl_Station_Pirate : cl_SectorObject
     public void AttackShip(cl_SectorObject Target, int Weapon)
     {
 
+    }
+    protected override void OnDestroy(cl_SectorObject Attacker)
+    {
+        base.OnDestroy(Attacker);
+        if (Attacker.tags.Contains(PLAYER))
+        {
+            Attacker.GetVar<PlayerController>(cl_Ship_Player.CONTROLLER).currency += currencyVal;
+        }
     }
 }

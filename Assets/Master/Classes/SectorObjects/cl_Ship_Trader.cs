@@ -12,7 +12,7 @@ public class cl_Ship_Trader : cl_SectorObject
     //Variables
     Vector3 direction;
     float speed;
-
+    public int currencyVal
     public cl_Ship_Trader() : base()
     {
         tags.Add(SHIP);
@@ -92,5 +92,13 @@ public class cl_Ship_Trader : cl_SectorObject
     public void AttackShip(cl_SectorObject Target, int Weapon)
     {
 
+    }
+    protected override void OnDestroy(cl_SectorObject Attacker)
+    {
+        base.OnDestroy(Attacker);
+        if (Attacker.tags.Contains(PLAYER))
+        {
+            Attacker.GetVar<PlayerController>(cl_Ship_Player.CONTROLLER).currency += currencyVal;
+        }
     }
 }

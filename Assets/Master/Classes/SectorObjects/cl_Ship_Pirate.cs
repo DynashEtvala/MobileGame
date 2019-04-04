@@ -17,7 +17,7 @@ public class cl_Ship_Pirate : cl_SectorObject
     float speed;
     float targetTimer;
     cl_SectorObject target;
-
+    public int currencyVal;
     public cl_Ship_Pirate()
     {
         tags.Add(SHIP);
@@ -126,4 +126,12 @@ public class cl_Ship_Pirate : cl_SectorObject
     }
 
     //Class Methods
+    protected override void OnDestroy(cl_SectorObject Attacker)
+    {
+        base.OnDestroy(Attacker);
+        if (Attacker.tags.Contains(PLAYER))
+        {
+            Attacker.GetVar<PlayerController>(cl_Ship_Player.CONTROLLER).currency += currencyVal;
+        }
+    }
 }

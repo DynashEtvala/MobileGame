@@ -8,7 +8,7 @@ public class cl_Station_Trader : cl_SectorObject
     //Method Names
     public const string OPENSHOP = "OpenShop";
     public const string ATTACKSHIP = "AttackShip";
-
+    public int currencyVal;
     //Constructors
     public cl_Station_Trader() : base()
     {
@@ -97,5 +97,13 @@ public class cl_Station_Trader : cl_SectorObject
     public void AttackShip(cl_SectorObject Target, int Weapon)
     {
 
+    }
+    protected override void OnDestroy(cl_SectorObject Attacker)
+    {
+        base.OnDestroy(Attacker);
+        if (Attacker.tags.Contains(PLAYER))
+        {
+            Attacker.GetVar<PlayerController>(cl_Ship_Player.CONTROLLER).currency += currencyVal;
+        }
     }
 }
