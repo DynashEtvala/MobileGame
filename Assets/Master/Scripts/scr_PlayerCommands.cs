@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-public class PlayerCommands : MonoBehaviour
+
+public class scr_PlayerCommands : MonoBehaviour
 {
     int minval = 1;
     public int grayedComponents = 0;
@@ -13,7 +13,7 @@ public class PlayerCommands : MonoBehaviour
     public List<string> tagValue;
     public Score score;
     public int StartingHealth;
-    public int healthRemaining; 
+    public int healthRemaining;
     void Start()
     {
         for (int t = 0; t < Components.Count; t++)
@@ -71,7 +71,7 @@ public class PlayerCommands : MonoBehaviour
                                     if (Components[randomComp].DmgTaken == 0)
                                     {
                                         Components[randomComp].Obj.transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
-                                        Components[randomComp].DmgTaken = 1 ;
+                                        Components[randomComp].DmgTaken = 1;
                                         score.scoreVal = score.scoreVal - 10;
                                         Debug.Log("100% Health");
                                         break;
@@ -154,7 +154,7 @@ public class PlayerCommands : MonoBehaviour
     }
 public bool Lose(int health)
 {
-        if(health <= 0)
+        if (health <= 0)
         {
             Debug.Log("You Lose");
             return true;
@@ -164,21 +164,4 @@ public bool Lose(int health)
             return false;
         }
     }
-}
-[System.Serializable]
-public class Component
-{
-    public GameObject Obj;
-    public int DmgTaken;
-    [HideInInspector]
-    public bool isStuned;
-}
-[System.Serializable]
-[HideInInspector]
-public class Score
-{
-    [HideInInspector]
-    public int scoreVal;
-    [HideInInspector]
-    public Text text;
 }
