@@ -124,4 +124,9 @@ abstract public class cl_SectorObject
             throw new System.Exception("Index " + Weapon + " is not a valid weapon");
         }
     }
+
+    virtual protected void OnDestroy(cl_SectorObject Attacker)
+    {
+
+    }
 }
