@@ -18,13 +18,16 @@ abstract public class cl_SectorObject
 
     public const string TRADER = "Trader";
     public const string PIRATE = "Pirate";
+    public const string PLAYER = "Player";
 
-
+    //Variables
     public List<string> tags;
-
     public Vector3 position;
+
     protected int hp, hpMax;
     protected int shield, shieldMax;
+    protected float evasion;
+    protected List<cl_Weapon> weapons;
 
     public cl_SectorObject()
     {
@@ -46,4 +49,55 @@ abstract public class cl_SectorObject
     abstract public void SetVar<T>(string Name, T Val);
 
     abstract public void CallMethod(string Name, params object[] args);
+
+    //Default methods
+    virtual public void Damaged(cl_Weapon Weapon)
+    {
+        int damageTaken = Weapon.GetVar<int>(cl_Weapon.DAMAGE);
+        if (Weapon.tags.Contains(cl_Weapon.PIERCING) == false)
+        {
+            if (Weapon.tags.Contains(cl_Weapon.EXPLOSIVE))
+            {
+                damageTaken *= 2;
+                shield -= damageTaken;
+                damageTaken = -(shield / 2);
+            }
+            else
+            {
+                shield -= damageTaken;
+                damageTaken = -shield;
+            }
+        }
+        if (damageTaken > 0)
+        {
+            if (Weapon.tags.Contains(cl_Weapon.ENERGY))
+            {
+                hp -= damageTaken * 2;
+            }
+            else
+            {
+                hp -= damageTaken;
+            }
+        }
+    }
+
+    //Base Methods
+    
+    virtual protected void AttackShip(cl_SectorObject Target, int Weapon)
+    {
+        if (Weapon < weapons.Count && Weapon >= 0)
+        {
+            if (weapons[Weapon].GetVar<float>(cl_Weapon.COOLDOWNTIMER) >= weapons[Weapon].GetVar<float>(cl_Weapon.COOLDOWN))
+            {
+                if (Random.value < weapons[Weapon].GetVar<float>(cl_Weapon.ACCURACY) * (1.0f - evasion))
+                {
+                    Target.Damaged(weapons[Weapon]);
+                }
+            }
+        }
+        else
+        {
+            throw new System.Exception("Index " + Weapon + " is not a valid weapon");
+        }
+    }
 }

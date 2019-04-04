@@ -5,9 +5,22 @@ using UnityEngine;
 [System.Serializable]
 abstract public class cl_Weapon
 {
+    //Variable Names
+    public const string DAMAGE = "Damage";
+    public const string COOLDOWN = "CoolDown";
+    public const string COOLDOWNTIMER = "CoolDownTimer";
+    public const string ACCURACY = "Accuracy";
 
+    //Tags
+    public const string KINETIC = "Kinetic";
+    public const string ENERGY = "Energy";
+    public const string EXPLOSIVE = "Explosive";
+
+    public const string PIERCING = "Piercing";
+
+    //Variables
     protected int damage;
-    protected float curCooldown;
+    protected float cooldownTimer;
     protected float cooldown;
     protected float accuracy;
 
@@ -17,16 +30,16 @@ abstract public class cl_Weapon
     public cl_Weapon()
     {
         damage = 1;
-        curCooldown = cooldown = 2;
+        cooldownTimer = cooldown = 2;
         accuracy = 0.9f;
     }
 
     // Update is called once per frame
     virtual public void Update()
     {
-        if (curCooldown < cooldown)
+        if (cooldownTimer < cooldown)
         {
-            curCooldown += Time.deltaTime;
+            cooldownTimer += Time.deltaTime;
         }
     }
 

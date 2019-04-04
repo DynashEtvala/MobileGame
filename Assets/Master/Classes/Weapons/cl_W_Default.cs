@@ -22,8 +22,16 @@ public class cl_W_Default : cl_Weapon
     {
         switch (Name)
         {
+            case DAMAGE:
+                return (T)(object)damage;
+            case COOLDOWN:
+                return (T)(object)cooldown;
+            case COOLDOWNTIMER:
+                return (T)(object)cooldownTimer;
+            case ACCURACY:
+                return (T)(object)accuracy;
             default:
-                throw new System.ArgumentException("Variable name " + Name + " is not valid");
+                throw new System.Exception("Variable name " + Name + " is not valid");
         }
     }
 

@@ -14,7 +14,6 @@ public class cl_Ship_Player : cl_SectorObject
     float power;
     [SerializeField]
     bool canConnectToSystems;
-    cl_Weapons weapons;
 
     //Method Names
     public const string ATTACKSHIP = "AttackShip";
@@ -23,7 +22,7 @@ public class cl_Ship_Player : cl_SectorObject
     {
 
         tags.Add(SHIP);
-        tags.Add("Player"); //TODO Add PLAYER tag to cl_SectorObject
+        tags.Add(PLAYER);
 
 
         nuclearIntensity = scr_SystemVariableController.Volume;
@@ -92,8 +91,4 @@ public class cl_Ship_Player : cl_SectorObject
     }
 
     //Class Methods
-    public void AttackShip(cl_SectorObject Target, int Weapon)
-    {
-        weapons.Attack(Target, Weapon);
-    }
 }
