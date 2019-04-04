@@ -31,8 +31,9 @@ public class cl_Asteroid : cl_SectorObject
                 return (T)(object)shield;
             case SHIELD_MAX:
                 return (T)(object)shieldMax;
+            default:
+                throw new System.ArgumentException("Variable name " + Name + " is not valid");
         }
-        throw new System.ArgumentException("Variable name " + Name + " is not valid");
     }
 
     override public void SetVar<T>(string Name, T Val)
