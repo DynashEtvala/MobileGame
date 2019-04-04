@@ -36,6 +36,7 @@ public class cl_Ship_Pirate : cl_SectorObject
 
     override public void Update(cl_Sector Sector)
     {
+        base.Update(Sector);
         position += direction * speed * Time.deltaTime;
     }
 

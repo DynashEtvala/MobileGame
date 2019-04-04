@@ -43,7 +43,17 @@ abstract public class cl_SectorObject
 
     }
 
-    abstract public void Update(cl_Sector Sector);
+    virtual public void Update(cl_Sector Sector)
+    {
+        for(int i = 0; i < weapons.Count; i++)
+        {
+            weapons[i].Update();
+        }
+        for(int i = 0;i < systems.Count; i++)
+        {
+            systems[i].Update();
+        }
+    }
 
     abstract public T GetVar<T>(string Name);
 
