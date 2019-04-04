@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class PlayerCommands : MonoBehaviour
 {
     int minval = 1;
-    public int grayedComponents = 0;
+    public int stunnedComponents = 0;
     public int maxVal;
     public int hit;
     public Camera cam;
@@ -14,6 +14,7 @@ public class PlayerCommands : MonoBehaviour
     public Score score;
     public int StartingHealth;
     public int healthRemaining; 
+    public RaycastHit rayHit;
     void Start()
     {
         for (int t = 0; t < Components.Count; t++)
@@ -32,8 +33,6 @@ public class PlayerCommands : MonoBehaviour
                 Vector3 touchPosNear = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.nearClipPlane);
                 Vector3 touchPosF = cam.ScreenToWorldPoint(touchPosFar);
                 Vector3 touchPosN = cam.ScreenToWorldPoint(touchPosNear);
-                RaycastHit rayHit;
-
                 if (Physics.Raycast(touchPosN, touchPosF - touchPosN, out rayHit))
                 {
                     for (int i = 0; i < tagValue.Capacity; i++)
@@ -71,7 +70,7 @@ public class PlayerCommands : MonoBehaviour
                                     if (Components[randomComp].DmgTaken == 0)
                                     {
                                         Components[randomComp].Obj.transform.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.39f, 0.0f, 1);
-                                        Components[randomComp].DmgTaken = 1 ;
+                                        Components[randomComp].DmgTaken = 1;
                                         score.scoreVal = score.scoreVal - 10;
                                         Debug.Log("100% Health");
                                         break;
@@ -96,8 +95,6 @@ public class PlayerCommands : MonoBehaviour
                                     {
                                         Components[randomComp].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.gray;
                                         Components[randomComp].DmgTaken = 4;
-                                        grayedComponents = grayedComponents + 1;
-                                        randomComp = Random.Range(0, Components.Count - grayedComponents);
                                         score.scoreVal = score.scoreVal - 40;
                                         Debug.Log("0% Health");
                                         break;
@@ -112,6 +109,8 @@ public class PlayerCommands : MonoBehaviour
                         if (rayHit.transform.gameObject.tag == tagValue[i] && tagValue[i] == "Repair")
                         {
                             int DamagedComp = Random.Range(0, Components.Count);
+                            Debug.Log(Components[DamagedComp].Obj.name);
+                            Debug.Log(Components[DamagedComp].DmgTaken);
                             if (Components[DamagedComp].DmgTaken == 1)
                             {
                                 Components[DamagedComp].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.green;
@@ -143,6 +142,7 @@ public class PlayerCommands : MonoBehaviour
                                 Components[DamagedComp].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.black;
                                 Components[DamagedComp].DmgTaken = 3;
                                 score.scoreVal = score.scoreVal + 0;
+                                stunnedComponents = stunnedComponents - 1;
                                 Debug.Log("10% Health");
                                 break;
                             }
@@ -170,7 +170,6 @@ public class Component
 {
     public GameObject Obj;
     public int DmgTaken;
-    [HideInInspector]
     public bool isStuned;
 }
 [System.Serializable]

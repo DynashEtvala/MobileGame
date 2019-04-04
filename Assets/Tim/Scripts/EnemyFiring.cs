@@ -29,6 +29,7 @@ public class EnemyFiring : MonoBehaviour
     {
         if (playerCom.Lose(playerHealthRemain) == false)
         {
+            Debug.Log(playerCom.stunnedComponents);
             int randNumber = Random.Range(0, playerComponents.Count);
             timer = timer + 1;
             if (timer < Reload)
@@ -47,7 +48,7 @@ public class EnemyFiring : MonoBehaviour
                     timer = 0;
                     return;
                 }
-                if(playerComponents[randNumber].DmgTaken == 1)
+                if (playerComponents[randNumber].DmgTaken == 1)
                 {
                     playerComponents[randNumber].Obj.transform.gameObject.GetComponent<Renderer>().material.color = new Color(0.59f, 0.0f, 0, 1);
                     playerComponents[randNumber].DmgTaken = 2;
@@ -69,16 +70,17 @@ public class EnemyFiring : MonoBehaviour
                 }
                 if (playerComponents[randNumber].DmgTaken == 3)
                 {
-                    playerComponents[randNumber].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.gray;
+                    playerComponents[randNumber].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.blue;
                     playerComponents[randNumber].DmgTaken = 4;
-                    playerCom.grayedComponents = playerCom.grayedComponents + 1;
-                    randNumber = Random.Range(0, playerComponents.Count - playerCom.grayedComponents);
+                    playerComponents[randNumber].isStuned = true;
+                    playerCom.stunnedComponents = playerCom.stunnedComponents + 1;
                     playerCom.score.scoreVal = playerCom.score.scoreVal - 40;
+
                     timer = 0;
                     if (bulletsFired >= 0 && bulletsFired <= Capacity)
                     {
-                        int DmgDealt = Random.Range(0,50);
-                        Debug.Log("Firing 8 Shots");
+                        int DmgDealt = Random.Range(0, 50);
+                        Debug.Log("Firing Shot");
                         playerHealthRemain = playerHealthRemain - DmgDealt;
                         player.GetComponent<PlayerCommands>().healthRemaining = playerHealthRemain;
                         bulletsFired = bulletsFired + 1;
@@ -89,14 +91,7 @@ public class EnemyFiring : MonoBehaviour
                         return;
                     }
                 }
-                if (playerComponents[randNumber].DmgTaken == 4)
-                {
-                    Debug.Log("Component is Stuned");
-                    playerComponents[randNumber].Obj.transform.gameObject.GetComponent<Renderer>().material.color = Color.blue;
-                    timer = 0;
-                    return;
 
-                }
             }
         }
     }
