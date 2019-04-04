@@ -9,7 +9,7 @@ public class cl_ShipSystem
     float repairTimer, repairTime;
 
     // Update is called once per frame
-    void Update()
+    virtual public void Update()
     {
         if (hp < hpMax)
         {
