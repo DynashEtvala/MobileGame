@@ -28,6 +28,7 @@ abstract public class cl_SectorObject
     protected int shield, shieldMax;
     protected float evasion;
     protected List<cl_Weapon> weapons;
+    protected List<cl_ShipSystem> systems;
 
     public cl_SectorObject()
     {
@@ -70,13 +71,26 @@ abstract public class cl_SectorObject
         }
         if (damageTaken > 0)
         {
-            if (Weapon.tags.Contains(cl_Weapon.ENERGY))
+            if (Weapon.tags.Contains(cl_Weapon.KINETIC))
             {
                 hp -= damageTaken * 2;
             }
             else
             {
                 hp -= damageTaken;
+            }
+            
+            if (Weapon.tags.Contains(cl_Weapon.ENERGY) == false)
+            {
+                damageTaken /= 2;
+            }
+            for(int i = 0; i < damageTaken; i++)
+            {
+                int target = Random.Range(0, 4 + systems.Count);
+                if(target - 4 >= 0)
+                {
+                    systems[target].Damaged(Weapon);
+                }
             }
         }
     }
