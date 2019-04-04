@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class cl_W_Explosive : cl_Weapon
 {
     cl_Weapon weapon;

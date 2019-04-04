@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class W_LowDmg : cl_Weapon
+[System.Serializable]
+public class cl_W_LowDmg : cl_Weapon
 {
     cl_Weapon weapon;
-    public W_LowDmg() : base()
+    public cl_W_LowDmg() : base()
     {
         tags.Add(KINETIC);
     }
