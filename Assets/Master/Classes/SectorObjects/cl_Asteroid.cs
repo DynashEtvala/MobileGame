@@ -3,39 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class cl_Ship_Player : cl_SectorObject
+public class cl_Asteroid : cl_SectorObject
 {
-
-    //Phone Functions
-    [Header("Phone Functions")]
-    [SerializeField]
-    float nuclearIntensity;
-    [SerializeField]
-    float power;
-    [SerializeField]
-    bool canConnectToSystems;
-    cl_Weapons weapons;
-
     //Method Names
-    public const string ATTACKSHIP = "AttackShip";
+    public const string MINERESOURCES = "MineResources";
 
-    public cl_Ship_Player() : base()
+    public cl_Asteroid() : base()
     {
-
-        tags.Add(SHIP);
-        tags.Add("Player"); //TODO Add PLAYER tag to cl_SectorObject
-
-
-        nuclearIntensity = scr_SystemVariableController.Volume;
-        power = scr_SystemVariableController.Screen_Brightness;
-        canConnectToSystems = scr_SystemVariableController.Wifi_Enabled;
+        tags.Add(ASTEROID);
     }
 
     override public void Update(cl_Sector Sector)
     {
-        nuclearIntensity = scr_SystemVariableController.Volume;
-        power = scr_SystemVariableController.Screen_Brightness;
-        canConnectToSystems = scr_SystemVariableController.Wifi_Enabled;
+
     }
 
     //Generic Call Methods
@@ -51,8 +31,9 @@ public class cl_Ship_Player : cl_SectorObject
                 return (T)(object)shield;
             case SHIELD_MAX:
                 return (T)(object)shieldMax;
+            default:
+                throw new System.ArgumentException("Variable name " + Name + " is not valid");
         }
-        throw new System.ArgumentException("Variable name " + Name + " is not valid");
     }
 
     override public void SetVar<T>(string Name, T Val)
@@ -80,10 +61,10 @@ public class cl_Ship_Player : cl_SectorObject
     {
         switch (Name)
         {
-            case ATTACKSHIP:
-                if (args[0] is cl_SectorObject && args[1] is int)
+            case MINERESOURCES:
+                if (args[0] is int)
                 {
-                    AttackShip((cl_SectorObject)args[0], (int)args[1]);
+                    MineResources((int)args[0]);
                 }
                 break;
             default:
@@ -92,8 +73,8 @@ public class cl_Ship_Player : cl_SectorObject
     }
 
     //Class Methods
-    public void AttackShip(cl_SectorObject Target, int Weapon)
+    public string MineResources(int Weapon) //Needs to return something not sure what yet.
     {
-        weapons.Attack(Target, Weapon);
+        return null;
     }
 }

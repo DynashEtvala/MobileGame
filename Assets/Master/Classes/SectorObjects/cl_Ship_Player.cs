@@ -3,19 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class cl_Asteroid : cl_SectorObject
+public class cl_Ship_Player : cl_SectorObject
 {
-    //Method Names
-    public const string MINERESOURCES = "MineResources";
 
-    public cl_Asteroid() : base()
+    //Phone Functions
+    [Header("Phone Functions")]
+    [SerializeField]
+    float nuclearIntensity;
+    [SerializeField]
+    float power;
+    [SerializeField]
+    bool canConnectToSystems;
+
+    //Method Names
+    public const string ATTACKSHIP = "AttackShip";
+
+    public cl_Ship_Player() : base()
     {
-        tags.Add(ASTEROID);
+
+        tags.Add(SHIP);
+        tags.Add(PLAYER);
+
+
+        nuclearIntensity = scr_SystemVariableController.Volume;
+        power = scr_SystemVariableController.Screen_Brightness;
+        canConnectToSystems = scr_SystemVariableController.Wifi_Enabled;
     }
 
     override public void Update(cl_Sector Sector)
     {
-
+        nuclearIntensity = scr_SystemVariableController.Volume;
+        power = scr_SystemVariableController.Screen_Brightness;
+        canConnectToSystems = scr_SystemVariableController.Wifi_Enabled;
     }
 
     //Generic Call Methods
@@ -60,10 +79,10 @@ public class cl_Asteroid : cl_SectorObject
     {
         switch (Name)
         {
-            case MINERESOURCES:
-                if (args[0] is int)
+            case ATTACKSHIP:
+                if (args[0] is cl_SectorObject && args[1] is int)
                 {
-                    MineResources((int)args[0]);
+                    AttackShip((cl_SectorObject)args[0], (int)args[1]);
                 }
                 break;
             default:
@@ -72,8 +91,4 @@ public class cl_Asteroid : cl_SectorObject
     }
 
     //Class Methods
-    public string MineResources(int Weapon) //Needs to return something not sure what yet.
-    {
-        return null;
-    }
 }
