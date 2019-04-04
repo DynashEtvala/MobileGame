@@ -91,12 +91,14 @@ public class GyroControl : MonoBehaviour {
                         if(dispScrn == null)
                         {
                             dispScrn = GameObject.Instantiate(dispScrnPrefab);
-                            
+                            dispScrnInfo = dispScrn.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+                            dispScrnInfo.text = "Hi";
                         }
                         else
                         {
                             dispScrn.SetActive(true);
                         }
+
 
                             
                         for (int i = 0; i < temp.tags.Count; i++)

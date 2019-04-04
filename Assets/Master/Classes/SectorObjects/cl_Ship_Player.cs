@@ -15,8 +15,11 @@ public class cl_Ship_Player : cl_SectorObject
     [SerializeField]
     bool canConnectToSystems;
 
+    PlayerController playerController;
+
     //Method Names
     public const string ATTACKSHIP = "AttackShip";
+    public const string CONTROLLER = "Controller";
 
     public cl_Ship_Player() : base()
     {
@@ -28,6 +31,11 @@ public class cl_Ship_Player : cl_SectorObject
         nuclearIntensity = scr_SystemVariableController.Volume;
         power = scr_SystemVariableController.Screen_Brightness;
         canConnectToSystems = scr_SystemVariableController.Wifi_Enabled;
+    }
+
+    public cl_Ship_Player(PlayerController playerController) : this()
+    {
+        this.playerController = playerController;
     }
 
     override public void Update(cl_Sector Sector)
@@ -51,6 +59,8 @@ public class cl_Ship_Player : cl_SectorObject
                 return (T)(object)shield;
             case SHIELD_MAX:
                 return (T)(object)shieldMax;
+            case CONTROLLER:
+                return (T)(object)playerController;
         }
         throw new System.ArgumentException("Variable name " + Name + " is not valid");
     }
