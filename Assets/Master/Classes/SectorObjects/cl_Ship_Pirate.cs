@@ -15,6 +15,8 @@ public class cl_Ship_Pirate : cl_SectorObject
     //Variables
     Vector3 direction;
     float speed;
+    float targetTimer;
+    cl_SectorObject target;
 
     public cl_Ship_Pirate()
     {
@@ -38,6 +40,36 @@ public class cl_Ship_Pirate : cl_SectorObject
     {
         base.Update(Sector);
         position += direction * speed * Time.deltaTime;
+        if(target == null)
+        {
+            if(targetTimer < 10)
+            {
+                targetTimer += Time.deltaTime;
+            }
+            else
+            {
+                if (Random.Range(0, 10) == 0)
+                {
+                    List<int> targetWeights = new List<int>();
+                    for(int i = 0; i < Sector.sectorObjects.Count; i++)
+                    {
+                        if(Sector.sectorObjects[i].tags.Contains(PLAYER) || Sector.sectorObjects[i].tags.Contains(TRADER))
+                        {
+                            targetWeights.Add(i);
+                        }
+                    }
+                    target = Sector.sectorObjects[targetWeights[Random.Range(0, targetWeights.Count)]];
+                }
+                targetTimer -= 10;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                AttackShip(target, i);
+            }
+        }
     }
 
     //Generic Call Methods
@@ -94,8 +126,4 @@ public class cl_Ship_Pirate : cl_SectorObject
     }
 
     //Class Methods
-    public void AttackShip(cl_SectorObject Target, int Weapon)
-    {
-
-    }
 }
