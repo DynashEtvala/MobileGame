@@ -17,6 +17,7 @@ public class cl_Station_Trader : cl_SectorObject
     {
         tags.Add(STATION);
         tags.Add(TRADER);
+        gyro = GameObject.Find("Gyro").GetComponent<GyroControl>();
         button = GameObject.Instantiate(gyro.buttonPrefab);
         button.GetComponentInChildren<Text>().text = "Next";
         button.GetComponent<Button>().onClick.AddListener(OnClick);

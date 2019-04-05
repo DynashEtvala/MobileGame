@@ -22,6 +22,7 @@ public class cl_Ship_Trader : cl_SectorObject
         tags.Add(TRADER);
         direction = Random.onUnitSphere;
         speed = Random.Range(0.75f, 1.25f);
+        gyro = GameObject.Find("Gyro").GetComponent<GyroControl>();
         button.GetComponent<Button>().onClick.AddListener(OnClick);
         button = GameObject.Instantiate(gyro.buttonPrefab);
         button.GetComponentInChildren<Text>().text = "Next";
