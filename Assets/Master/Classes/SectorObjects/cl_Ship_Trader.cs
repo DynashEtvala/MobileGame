@@ -12,7 +12,7 @@ public class cl_Ship_Trader : cl_SectorObject
     //Variables
     Vector3 direction;
     float speed;
-    public int currencyVal
+    public int currencyVal;
     public cl_Ship_Trader() : base()
     {
         tags.Add(SHIP);
