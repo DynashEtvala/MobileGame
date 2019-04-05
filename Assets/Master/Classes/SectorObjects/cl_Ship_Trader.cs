@@ -13,10 +13,12 @@ public class cl_Ship_Trader : cl_SectorObject
     Vector3 direction;
     float speed;
     public int currencyVal;
+    public int weaponVal;
     public GyroControl gyro;
     public bool buttonPressed;
+    List<cl_Weapon> Inventory;
     GameObject button;
-    int NUM;
+    string invText = "";
     public cl_Ship_Trader() : base()
     {
         tags.Add(SHIP);
@@ -24,6 +26,38 @@ public class cl_Ship_Trader : cl_SectorObject
         direction = Random.onUnitSphere;
         speed = Random.Range(0.75f, 1.25f);
         gyro = GameObject.Find("Gyro").GetComponent<GyroControl>();
+        for (int i = 0; i < Random.Range(2, 4); i++)
+        {
+            switch (Random.Range(0, 5))
+            {
+                case 0:
+                    Inventory.Add(new cl_W_Default());
+                    weaponVal = Random.Range(5, 10);
+                    invText += "Default Weapon " + weaponVal + "\n";
+                    break;
+                case 1:
+                    Inventory.Add(new cl_W_HighDmg());
+                    weaponVal = Random.Range(10, 30);
+                    invText += "HighDmg Weapon " + weaponVal + "\n";
+                    break;
+                case 2:
+                    Inventory.Add(new cl_W_LowDmg());
+                    weaponVal = Random.Range(2, 5);
+                    invText += "LowDmg Weapon " + weaponVal + "\n";
+                    break;
+                case 3:
+                    Inventory.Add(new cl_W_Explosive());
+                    weaponVal = Random.Range(40, 50);
+                    invText += "Explosive Weapon " + weaponVal + "\n";
+                    break;
+                case 4:
+                    Inventory.Add(new cl_W_Energy());
+                    weaponVal = Random.Range(60, 80);
+                    invText += "Energy Weapon " + weaponVal + "\n";
+                    break;
+
+            }
+        }
     }
 
     override public void Update(cl_Sector Sector)
@@ -94,10 +128,13 @@ public class cl_Ship_Trader : cl_SectorObject
     //Class Methods
     public void OpenShop()
     {
-        if(buttonPressed == true)
+
+        if (buttonPressed == true)
         {
-            button.SetActive(false);
-            gyro.dispScrnPrefab.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shop\n Hello Welcom to the shop";
+            for (int t = 0; t < Inventory.Count; t++)
+            {
+                gyro.dispScrnPrefab.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shop\n Hello Welcom to the shop\n" + invText;
+            }
 
         }
         else
@@ -107,9 +144,6 @@ public class cl_Ship_Trader : cl_SectorObject
     }
     public void Trade()
     {
-        button = GameObject.Instantiate(gyro.buttonPrefab);
-        button.GetComponentInChildren<Text>().text = "Next";
-        button.transform.position = new Vector3(0.3f, 0.275f, 0.8f);
         button.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
