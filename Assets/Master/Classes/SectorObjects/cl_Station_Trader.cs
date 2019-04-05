@@ -18,9 +18,6 @@ public class cl_Station_Trader : cl_SectorObject
         tags.Add(STATION);
         tags.Add(TRADER);
         gyro = GameObject.Find("Gyro").GetComponent<GyroControl>();
-        button = GameObject.Instantiate(gyro.buttonPrefab);
-        button.GetComponentInChildren<Text>().text = "Next";
-        button.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     public cl_Station_Trader(Vector3 Position) : this()
@@ -90,6 +87,9 @@ public class cl_Station_Trader : cl_SectorObject
                     AttackShip((cl_SectorObject)args[0], (int)args[1]);
                 }
                 break;
+            case TRADE:
+                Trade();
+                break;
             default:
                 throw new System.Exception("Method name " + Name + " is not valid");
         }
@@ -107,7 +107,13 @@ public class cl_Station_Trader : cl_SectorObject
             Debug.Log("Not the Player");
         }
     }
-
+    public void Trade()
+    {
+        button = GameObject.Instantiate(gyro.buttonPrefab);
+        button.GetComponentInChildren<Text>().text = "Next";
+        button.transform.position = new Vector3(0.3f, 0.275f, 0.8f);
+        button.GetComponent<Button>().onClick.AddListener(OnClick);
+    }
 
     public void AttackShip(cl_SectorObject Target, int Weapon)
     {
@@ -126,6 +132,7 @@ public class cl_Station_Trader : cl_SectorObject
         if (tags.Contains(PLAYER))
         {
             buttonPressed = true;
+            OpenShop();
         }
         else
         {

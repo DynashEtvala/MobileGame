@@ -16,6 +16,7 @@ public class cl_Ship_Trader : cl_SectorObject
     public GyroControl gyro;
     public bool buttonPressed;
     GameObject button;
+    int NUM;
     public cl_Ship_Trader() : base()
     {
         tags.Add(SHIP);
@@ -23,9 +24,13 @@ public class cl_Ship_Trader : cl_SectorObject
         direction = Random.onUnitSphere;
         speed = Random.Range(0.75f, 1.25f);
         gyro = GameObject.Find("Gyro").GetComponent<GyroControl>();
+        if(NUM == 1)
+        {
+
         button = GameObject.Instantiate(gyro.buttonPrefab);
+            NUM = 0;
+        }
         button.GetComponentInChildren<Text>().text = "Next";
-        button.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     override public void Update(cl_Sector Sector)
@@ -85,6 +90,9 @@ public class cl_Ship_Trader : cl_SectorObject
                     AttackShip((cl_SectorObject)args[0], (int)args[1]);
                 }
                 break;
+            case TRADE:
+                Trade();
+                break;
             default:
                 throw new System.Exception("Method name " + Name + " is not valid");
         }
@@ -102,6 +110,14 @@ public class cl_Ship_Trader : cl_SectorObject
             Debug.Log("Not the Player");
         }
     }
+    public void Trade()
+    {
+        button = GameObject.Instantiate(gyro.buttonPrefab);
+        button.GetComponentInChildren<Text>().text = "Next";
+        button.transform.position = new Vector3(0.3f, 0.275f, 0.8f);
+        button.GetComponent<Button>().onClick.AddListener(OnClick);
+    }
+
 
     public void AttackShip(cl_SectorObject Target, int Weapon)
     {
@@ -120,6 +136,7 @@ public class cl_Ship_Trader : cl_SectorObject
         if (tags.Contains(PLAYER))
         {
             buttonPressed = true;
+            OpenShop();
         }
         else
         {

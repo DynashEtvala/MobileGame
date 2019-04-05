@@ -19,6 +19,7 @@ abstract public class cl_SectorObject
     public const string TRADER = "Trader";
     public const string PIRATE = "Pirate";
     public const string PLAYER = "Player";
+    public const string TRADE = "Trade";
 
     //Variables
     public List<string> tags;
