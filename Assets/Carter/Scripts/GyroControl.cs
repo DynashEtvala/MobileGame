@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class GyroControl : MonoBehaviour {
+public class GyroControl : MonoBehaviour
+{
 
     [SerializeField]
     private bool gyroEnabled;
     private bool firstRun;
+    private bool buttonPressed;
     public float distanceToPlane;
     private float distanceToQuad;
 
@@ -39,7 +42,8 @@ public class GyroControl : MonoBehaviour {
 
     private Dictionary<GameObject, cl_SectorObject> blipToObjDict = new Dictionary<GameObject, cl_SectorObject>();
 
-	void Start () {
+    void Start()
+    {
         gyroContainer = new GameObject("Gyro Container");
         gyroContainer.transform.rotation = Quaternion.Euler(90f, 90f, 0f);
         gyroContainer.transform.position = transform.position;
@@ -63,7 +67,7 @@ public class GyroControl : MonoBehaviour {
             sectorObjectsVis = sectorController.sectorObjects;
             if (!firstRun)
             {
-                for (int i = 0; i < sectorObjectsVis.Count;i++)
+                for (int i = 0; i < sectorObjectsVis.Count; i++)
                 {
                     blips.Add(GameObject.Instantiate(blipPrefab));
                     blipToObjDict.Add(blips[i], sectorObjects[i]);
@@ -88,8 +92,8 @@ public class GyroControl : MonoBehaviour {
                     else
                     {
                         cl_SectorObject tempObj = blipToObjDict[rayHit.transform.gameObject];
-                        
-                        if(dispScrn == null)
+
+                        if (dispScrn == null)
                         {
                             dispScrn = GameObject.Instantiate(dispScrnPrefab);
                             dispScrnInfo = dispScrn.GetComponentInChildren<TMPro.TextMeshProUGUI>();
@@ -115,8 +119,11 @@ public class GyroControl : MonoBehaviour {
                             dispScrnInfo.text = tempStr;
                         }
 
+                        if (tempObj.tags.Contains("Trader"))
+                        {
+                            tempObj.CallMethod("Trade");
+                        }
 
-                            
                         for (int i = 0; i < tempObj.tags.Count; i++)
                         {
                             Debug.Log(tempObj.tags[i]);
@@ -146,7 +153,7 @@ public class GyroControl : MonoBehaviour {
                     blips[i].transform.SetParent(eyeTransform, true);
                     Vector3 blipV = blips[i].transform.position;
                     if (blipV.x < -0.5f ||
-                       blipV.x > 0.5f  ||
+                       blipV.x > 0.5f ||
                        blipV.y < -0.5f ||
                        blipV.y > 0.5f)
                     {
@@ -165,7 +172,8 @@ public class GyroControl : MonoBehaviour {
         }
     }
 
-    private bool EnableGyro() {
+    private bool EnableGyro()
+    {
         if (SystemInfo.supportsGyroscope)
         {
             gyro = Input.gyro;
