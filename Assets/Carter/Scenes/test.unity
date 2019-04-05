@@ -158,6 +158,11 @@ MonoBehaviour:
   quad: {fileID: 421715733}
   eye: {fileID: 1775193548}
   blipPrefab: {fileID: 1048604719962108, guid: ab1880cd4944e0a4a85533b65eb68cad, type: 2}
+  buttonPrefab: {fileID: 1689087192338100, guid: 3ca2d406ce73ca047bc621f8083ae508,
+    type: 2}
+  dispScrnPrefab: {fileID: 1363589399598258, guid: 090d4f0f13c50ca44a95235e545fab22,
+    type: 2}
+  dispScrnInfo: {fileID: 0}
   blips: []
 --- !u!1001 &348131160
 Prefab:
@@ -571,4 +576,7 @@ MonoBehaviour:
   quad: {fileID: 0}
   eye: {fileID: 0}
   blipPrefab: {fileID: 1048604719962108, guid: ab1880cd4944e0a4a85533b65eb68cad, type: 2}
+  buttonPrefab: {fileID: 0}
+  dispScrnPrefab: {fileID: 0}
+  dispScrnInfo: {fileID: 0}
   blips: []

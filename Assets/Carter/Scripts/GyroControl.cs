@@ -19,7 +19,7 @@ public class GyroControl : MonoBehaviour {
     public GameObject buttonPrefab;
     public GameObject dispScrnPrefab;
     private GameObject dispScrn;
-    public TMPro.TextMeshProUGUI dispScrnInfo;
+    private TMPro.TextMeshProUGUI dispScrnInfo;
     private List<GameObject> sectorObjectsVis;
     public List<GameObject> blips;
 
