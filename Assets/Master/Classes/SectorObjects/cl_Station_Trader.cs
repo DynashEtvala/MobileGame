@@ -100,7 +100,7 @@ public class cl_Station_Trader : cl_SectorObject
     {
         if (buttonPressed == true)
         {
-            gyro.dispScrnPrefab.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shop\n Hello Welcom to the shop";
+            gyro.dispScrnPrefab.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shop\n Hello Welcome to the shop";
         }
         else
         {
@@ -111,7 +111,6 @@ public class cl_Station_Trader : cl_SectorObject
     {
         button = GameObject.Instantiate(gyro.buttonPrefab);
         button.GetComponentInChildren<Text>().text = "Next";
-        button.transform.position = new Vector3(0.3f, 0.275f, 0.8f);
         button.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 

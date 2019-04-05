@@ -24,13 +24,6 @@ public class cl_Ship_Trader : cl_SectorObject
         direction = Random.onUnitSphere;
         speed = Random.Range(0.75f, 1.25f);
         gyro = GameObject.Find("Gyro").GetComponent<GyroControl>();
-        if(NUM == 1)
-        {
-
-        button = GameObject.Instantiate(gyro.buttonPrefab);
-            NUM = 0;
-        }
-        button.GetComponentInChildren<Text>().text = "Next";
     }
 
     override public void Update(cl_Sector Sector)
@@ -103,7 +96,9 @@ public class cl_Ship_Trader : cl_SectorObject
     {
         if(buttonPressed == true)
         {
+            button.SetActive(false);
             gyro.dispScrnPrefab.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shop\n Hello Welcom to the shop";
+
         }
         else
         {
