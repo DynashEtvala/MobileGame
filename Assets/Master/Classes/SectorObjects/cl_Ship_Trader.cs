@@ -17,7 +17,6 @@ public class cl_Ship_Trader : cl_SectorObject
     public GyroControl gyro;
     public bool buttonPressed;
     List<cl_Weapon> Inventory;
-    GameObject button;
     string invText = "";
     public cl_Ship_Trader() : base()
     {
@@ -118,7 +117,7 @@ public class cl_Ship_Trader : cl_SectorObject
                 }
                 break;
             case TRADE:
-                Trade();
+                Trade((GameObject)args[0]);
                 break;
             default:
                 throw new System.Exception("Method name " + Name + " is not valid");
@@ -141,7 +140,7 @@ public class cl_Ship_Trader : cl_SectorObject
                 Debug.Log("Not the Player");
             }
     }
-    public void Trade()
+    public void Trade(GameObject button)
     {
         button.GetComponent<Button>().onClick.AddListener(OnClick);
     }
