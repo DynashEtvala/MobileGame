@@ -7,7 +7,7 @@ public class cl_W_Energy : cl_Weapon
     cl_Weapon weapon;
     public cl_W_Energy() : base()
     {
-        tags.Add(ENERGY);s
+        tags.Add(ENERGY);
     }
 
     // Update is called once per frame

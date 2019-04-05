@@ -18,7 +18,7 @@ public class GyroControl : MonoBehaviour {
     public GameObject blipPrefab;
     public GameObject dispScrnPrefab;
     private GameObject dispScrn;
-    private TMPro.TextMeshProUGUI dispScrnInfo;
+    public TMPro.TextMeshProUGUI dispScrnInfo;
     private List<GameObject> sectorObjectsVis;
     public List<GameObject> blips;
 
@@ -82,28 +82,43 @@ public class GyroControl : MonoBehaviour {
                 {
                     if (!blipToObjDict.ContainsKey(rayHit.transform.gameObject))
                     {
-                        Debug.Log("Not Dict");
+                        dispScrn.SetActive(false);
                     }
                     else
                     {
-                        cl_SectorObject temp = blipToObjDict[rayHit.transform.gameObject];
+                        cl_SectorObject tempObj = blipToObjDict[rayHit.transform.gameObject];
                         
                         if(dispScrn == null)
                         {
                             dispScrn = GameObject.Instantiate(dispScrnPrefab);
                             dispScrnInfo = dispScrn.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                            dispScrnInfo.text = "Hi";
+                            string tempStr = "";
+                            for (int i = 0; i < tempObj.tags.Count; i++)
+                            {
+                                if (tempStr != "")
+                                    tempStr += " ";
+                                tempStr += tempObj.tags[i];
+                            }
+                            dispScrnInfo.text = tempStr;
                         }
                         else
                         {
                             dispScrn.SetActive(true);
+                            string tempStr = "";
+                            for (int i = 0; i < tempObj.tags.Count; i++)
+                            {
+                                if (tempStr != "")
+                                    tempStr += " ";
+                                tempStr += tempObj.tags[i];
+                            }
+                            dispScrnInfo.text = tempStr;
                         }
 
 
                             
-                        for (int i = 0; i < temp.tags.Count; i++)
+                        for (int i = 0; i < tempObj.tags.Count; i++)
                         {
-                            Debug.Log(temp.tags[i]);
+                            Debug.Log(tempObj.tags[i]);
                         }
                     }
                 }
