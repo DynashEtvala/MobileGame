@@ -20,9 +20,11 @@ public class GyroControl : MonoBehaviour
     public GameObject eye;
     public GameObject blipPrefab;
     public GameObject buttonPrefab;
+    public GameObject traderButton;
     public GameObject dispScrnPrefab;
-    private GameObject dispScrn;
+    public GameObject dispScrn;
     private TMPro.TextMeshProUGUI dispScrnInfo;
+    cl_SectorObject traderObjBuffer;
     private List<GameObject> sectorObjectsVis;
     public List<GameObject> blips;
 
@@ -85,12 +87,21 @@ public class GyroControl : MonoBehaviour
 
                 if (Physics.Raycast(touchPosN, touchPosF - touchPosN, out rayHit))
                 {
-                    if (!blipToObjDict.ContainsKey(rayHit.transform.gameObject))
+                    if (rayHit.transform.gameObject.CompareTag("Radar") && dispScrn != null)
                     {
                         dispScrn.SetActive(false);
+                        if (traderButton != null)
+                            Destroy(traderButton);
                     }
-                    else
+                    else if (rayHit.transform.gameObject.CompareTag("Button") )
                     {
+                        traderObjBuffer.CallMethod("OpenShop");
+                        Destroy(traderButton);
+                    }
+                    else if(rayHit.transform.gameObject.CompareTag("Blip"))
+                    {
+                        if (traderButton != null)
+                            Destroy(traderButton);
                         cl_SectorObject tempObj = blipToObjDict[rayHit.transform.gameObject];
 
                         if (dispScrn == null)
@@ -121,7 +132,10 @@ public class GyroControl : MonoBehaviour
 
                         if (tempObj.tags.Contains("Trader"))
                         {
-                            tempObj.CallMethod("Trade");
+                            if (traderButton != null)
+                                Destroy(traderButton);
+                            traderButton = GameObject.Instantiate(buttonPrefab);
+                            traderObjBuffer = tempObj;
                         }
 
                         for (int i = 0; i < tempObj.tags.Count; i++)

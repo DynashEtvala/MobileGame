@@ -11,7 +11,6 @@ public class cl_Station_Trader : cl_SectorObject
     public int currencyVal;
     public int weaponVal;
     public GyroControl gyro;
-    public bool buttonPressed;
     List<cl_Weapon> Inventory = new List<cl_Weapon>();
     string invText = "";
     //Constructors
@@ -121,9 +120,6 @@ public class cl_Station_Trader : cl_SectorObject
                     AttackShip((cl_SectorObject)args[0], (int)args[1]);
                 }
                 break;
-            case TRADE:
-                Trade((GameObject)args[0]);
-                break;
             default:
                 throw new System.Exception("Method name " + Name + " is not valid");
         }
@@ -132,21 +128,7 @@ public class cl_Station_Trader : cl_SectorObject
     //Class Methods
     public void OpenShop()
     {
-        if (buttonPressed == true)
-        {
-            for (int t = 0; t < Inventory.Count; t++)
-            {
-                gyro.dispScrnPrefab.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shop\n Hello Welcom to the shop\n" + invText;
-            }
-        }
-        else
-        {
-            Debug.Log("Not the Player");
-        }
-    }
-    public void Trade(GameObject button)
-    {
-        button.GetComponent<Button>().onClick.AddListener(OnClick);
+        gyro.dispScrn.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shop\nHello Welcome to the shop\n" + invText;
     }
 
     public void AttackShip(cl_SectorObject Target, int Weapon)
@@ -159,19 +141,6 @@ public class cl_Station_Trader : cl_SectorObject
         if (Attacker.tags.Contains(PLAYER))
         {
             Attacker.GetVar<PlayerController>(cl_Ship_Player.CONTROLLER).currency += currencyVal;
-        }
-    }
-    public void OnClick()
-    {
-        if (tags.Contains(PLAYER))
-        {
-            buttonPressed = true;
-            OpenShop();
-        }
-        else
-        {
-            buttonPressed = false;
-
         }
     }
 }

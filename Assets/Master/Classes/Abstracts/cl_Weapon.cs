@@ -24,7 +24,7 @@ abstract public class cl_Weapon
     protected float cooldown;
     protected float accuracy;
 
-    public List<string> tags;
+    public List<string> tags = new List<string>();
 
     //Constructors
     public cl_Weapon()

@@ -222,6 +222,7 @@ MonoBehaviour:
   blipPrefab: {fileID: 1048604719962108, guid: ab1880cd4944e0a4a85533b65eb68cad, type: 2}
   buttonPrefab: {fileID: 1248283204449630, guid: 3e8e77f1211bc0b47981c08dbf07bf27,
     type: 2}
+  traderButton: {fileID: 0}
   dispScrnPrefab: {fileID: 1363589399598258, guid: 090d4f0f13c50ca44a95235e545fab22,
     type: 2}
   blips: []
@@ -375,7 +376,7 @@ GameObject:
   - component: {fileID: 421715734}
   m_Layer: 0
   m_Name: Quad
-  m_TagString: Untagged
+  m_TagString: Radar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -638,5 +639,6 @@ MonoBehaviour:
   eye: {fileID: 0}
   blipPrefab: {fileID: 1048604719962108, guid: ab1880cd4944e0a4a85533b65eb68cad, type: 2}
   buttonPrefab: {fileID: 0}
+  traderButton: {fileID: 0}
   dispScrnPrefab: {fileID: 0}
   blips: []
