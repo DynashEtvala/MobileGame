@@ -16,7 +16,7 @@ public class cl_Ship_Trader : cl_SectorObject
     public int weaponVal;
     public GyroControl gyro;
     public bool buttonPressed;
-    List<cl_Weapon> Inventory;
+    List<cl_Weapon> Inventory = new List<cl_Weapon>();
     string invText = "";
     public cl_Ship_Trader() : base()
     {
