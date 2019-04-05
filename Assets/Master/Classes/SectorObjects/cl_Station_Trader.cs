@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 [System.Serializable]
 public class cl_Station_Trader : cl_SectorObject
 {
@@ -9,11 +9,17 @@ public class cl_Station_Trader : cl_SectorObject
     public const string OPENSHOP = "OpenShop";
     public const string ATTACKSHIP = "AttackShip";
     public int currencyVal;
+    public GyroControl gyro;
+    public bool buttonPressed;
+    GameObject button;
     //Constructors
     public cl_Station_Trader() : base()
     {
         tags.Add(STATION);
         tags.Add(TRADER);
+        button = GameObject.Instantiate(gyro.buttonPrefab);
+        button.GetComponentInChildren<Text>().text = "Next";
+        button.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     public cl_Station_Trader(Vector3 Position) : this()
@@ -91,8 +97,16 @@ public class cl_Station_Trader : cl_SectorObject
     //Class Methods
     public void OpenShop()
     {
-
+        if (buttonPressed == true)
+        {
+            gyro.dispScrnPrefab.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shop\n Hello Welcom to the shop";
+        }
+        else
+        {
+            Debug.Log("Not the Player");
+        }
     }
+
 
     public void AttackShip(cl_SectorObject Target, int Weapon)
     {
@@ -104,6 +118,18 @@ public class cl_Station_Trader : cl_SectorObject
         if (Attacker.tags.Contains(PLAYER))
         {
             Attacker.GetVar<PlayerController>(cl_Ship_Player.CONTROLLER).currency += currencyVal;
+        }
+    }
+    public void OnClick()
+    {
+        if (tags.Contains(PLAYER))
+        {
+            buttonPressed = true;
+        }
+        else
+        {
+            buttonPressed = false;
+
         }
     }
 }
