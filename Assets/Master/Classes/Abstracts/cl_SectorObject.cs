@@ -27,8 +27,8 @@ abstract public class cl_SectorObject
     protected int hp, hpMax;
     protected int shield, shieldMax;
     protected float evasion;
-    protected List<cl_Weapon> weapons = new List<cl_Weapon>();
-    protected List<cl_ShipSystem> systems = new List<cl_ShipSystem>();
+    protected List<cl_Weapon> weapons;
+    protected List<cl_ShipSystem> systems;
 
     public cl_SectorObject()
     {
