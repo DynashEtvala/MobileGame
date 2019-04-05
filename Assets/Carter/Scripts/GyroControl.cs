@@ -16,6 +16,7 @@ public class GyroControl : MonoBehaviour {
     public GameObject quad;
     public GameObject eye;
     public GameObject blipPrefab;
+    public GameObject buttonPrefab;
     public GameObject dispScrnPrefab;
     private GameObject dispScrn;
     private TMPro.TextMeshProUGUI dispScrnInfo;
