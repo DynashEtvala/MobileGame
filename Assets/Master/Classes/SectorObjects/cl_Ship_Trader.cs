@@ -23,9 +23,9 @@ public class cl_Ship_Trader : cl_SectorObject
         direction = Random.onUnitSphere;
         speed = Random.Range(0.75f, 1.25f);
         gyro = GameObject.Find("Gyro").GetComponent<GyroControl>();
-        button.GetComponent<Button>().onClick.AddListener(OnClick);
         button = GameObject.Instantiate(gyro.buttonPrefab);
         button.GetComponentInChildren<Text>().text = "Next";
+        button.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     override public void Update(cl_Sector Sector)
