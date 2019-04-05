@@ -12,7 +12,7 @@ public class cl_Station_Trader : cl_SectorObject
     public int weaponVal;
     public GyroControl gyro;
     public bool buttonPressed;
-    List<cl_Weapon> Inventory;
+    List<cl_Weapon> Inventory = new List<cl_Weapon>();
     string invText = "";
     //Constructors
     public cl_Station_Trader() : base()
