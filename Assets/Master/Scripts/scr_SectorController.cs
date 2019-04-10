@@ -7,6 +7,7 @@ public class scr_SectorController : MonoBehaviour {
     public int sectorNum;
     public GameObject sectorObjectPrefab;
     public List<GameObject> sectorObjects;
+    public cl_Ship_Player playerShip;
 
 	// Use this for initialization
 	void Start ()
@@ -17,6 +18,7 @@ public class scr_SectorController : MonoBehaviour {
             sectorObjects.Add(Instantiate(sectorObjectPrefab));
         }
         sectorNum = 0;
+        playerShip = new cl_Ship_Player();
         currSector = GenerateSector();
 	}
 	
@@ -34,8 +36,11 @@ public class scr_SectorController : MonoBehaviour {
     {
         List<cl_SectorObject> tempObjectList = new List<cl_SectorObject>();
 
-        int objectGenCount = 5; //TODO: make variable based on certain factors
-        while(tempObjectList.Count < objectGenCount)
+        int objectGenCount = 5 + sectorNum / 2;
+
+        tempObjectList.Add(playerShip);
+
+        while(tempObjectList.Count < objectGenCount + 1)
         {
             List<string> typeWeights = new List<string>();
             if (!ListContainsObjectWithTag(tempObjectList, cl_SectorObject.STATION))
