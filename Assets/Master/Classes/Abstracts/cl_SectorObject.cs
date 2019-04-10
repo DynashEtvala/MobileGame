@@ -10,6 +10,7 @@ abstract public class cl_SectorObject
     public const string HULLPOINTS_MAX = "HullPoints_Max";
     public const string SHIELD = "Shield";
     public const string SHIELD_MAX = "Shield_Max";
+    public const string WEAPONS = "Weapons";
 
     //Tags
     public const string STATION = "Station";

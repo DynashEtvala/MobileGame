@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 64496262175558580}
   - component: {fileID: 33488703580508330}
   m_Layer: 0
-  m_Name: Button
-  m_TagString: Button
+  m_Name: TradeButton
+  m_TagString: TradeButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

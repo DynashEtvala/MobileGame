@@ -8,6 +8,7 @@ public class cl_W_LowDmg : cl_Weapon
     public cl_W_LowDmg() : base()
     {
         tags.Add(KINETIC);
+        name = "Low Damage Weapon";
     }
 
     // Update is called once per frame
