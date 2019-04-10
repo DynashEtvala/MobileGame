@@ -9,6 +9,7 @@ public class cl_W_HighDmg : cl_Weapon
     {
         tags.Add(KINETIC);
         tags.Add(PIERCING);
+        name = "High Damage Weapon";
     }
 
     // Update is called once per frame

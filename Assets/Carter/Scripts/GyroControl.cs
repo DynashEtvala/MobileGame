@@ -19,13 +19,15 @@ public class GyroControl : MonoBehaviour
     public GameObject quad;
     public GameObject eye;
     public GameObject blipPrefab;
-    public GameObject buttonPrefab;
+    public GameObject traderButtonPrefab;
     public GameObject traderButton;
+    public GameObject targetButtonPrefab;
+    public GameObject targetButton;
     public GameObject dispScrnPrefab;
     public GameObject dispScrn;
     private TMPro.TextMeshProUGUI dispScrnInfo;
     cl_SectorObject traderObjBuffer;
-    private List<GameObject> sectorObjectsVis;
+    cl_SectorObject pirateObjBuffer;
     public List<GameObject> blips;
 
     private Transform eyeTransform;
@@ -40,6 +42,7 @@ public class GyroControl : MonoBehaviour
 
     private scr_SectorController sectorController;
     private cl_Sector currSector;
+    private cl_SectorObject player;
     private List<cl_SectorObject> sectorObjects;
 
     private Dictionary<GameObject, cl_SectorObject> blipToObjDict = new Dictionary<GameObject, cl_SectorObject>();
@@ -55,21 +58,22 @@ public class GyroControl : MonoBehaviour
         objectManager = GameObject.FindGameObjectWithTag("GameManager");
         sectorController = objectManager.GetComponent<scr_SectorController>();
         currSector = sectorController.currSector;
-        sectorObjects = currSector.sectorObjects;
-        sectorObjectsVis = sectorController.sectorObjects;
+        //sectorObjects = currSector.sectorObjects;
+        sectorObjects = sectorController.currSector.sectorObjects;
         hitPlane = new Plane(transform.forward, transform.forward * distanceToPlane);
         eyeTransform = eye.GetComponent<Transform>();
         cam = Camera.FindObjectOfType<Camera>();
+        player = currSector.sectorObjects[0];
     }
 
     void Update()
     {
         if (gyroEnabled)
         {
-            sectorObjectsVis = sectorController.sectorObjects;
+            sectorObjects = sectorController.currSector.sectorObjects;
             if (!firstRun)
             {
-                for (int i = 0; i < sectorObjectsVis.Count; i++)
+                for (int i = 0; i < sectorObjects.Count; i++)
                 {
                     blips.Add(GameObject.Instantiate(blipPrefab));
                     blipToObjDict.Add(blips[i], sectorObjects[i]);
@@ -93,10 +97,15 @@ public class GyroControl : MonoBehaviour
                         if (traderButton != null)
                             Destroy(traderButton);
                     }
-                    else if (rayHit.transform.gameObject.CompareTag("Button") )
+                    else if (rayHit.transform.gameObject.CompareTag("TradeButton") )
                     {
                         traderObjBuffer.CallMethod("OpenShop");
                         Destroy(traderButton);
+                    }
+                    else if (rayHit.transform.gameObject.CompareTag("TargetButton") )
+                    {
+                        pirateObjBuffer.CallMethod("Target", player.GetVar<cl_Weapon>("Weapons"));
+                        Destroy(targetButton);
                     }
                     else if(rayHit.transform.gameObject.CompareTag("Blip"))
                     {
@@ -134,8 +143,19 @@ public class GyroControl : MonoBehaviour
                         {
                             if (traderButton != null)
                                 Destroy(traderButton);
-                            traderButton = GameObject.Instantiate(buttonPrefab);
+                            if (targetButton != null)
+                                Destroy(targetButton);
+                            traderButton = GameObject.Instantiate(traderButtonPrefab);
                             traderObjBuffer = tempObj;
+                        }
+                        if (tempObj.tags.Contains("Pirate"))
+                        {
+                            if (targetButton != null)
+                                Destroy(targetButton);
+                            if (traderButton != null)
+                                Destroy(traderButton);
+                            targetButton = GameObject.Instantiate(targetButtonPrefab);
+                            pirateObjBuffer = tempObj;
                         }
 
                         for (int i = 0; i < tempObj.tags.Count; i++)
@@ -152,10 +172,10 @@ public class GyroControl : MonoBehaviour
 
             Debug.DrawLine(transform.position, hitPlane.ClosestPointOnPlane(transform.position), Color.red, 0.0f, false);
 
-            for (int i = 0; i < sectorObjectsVis.Count; i++)
+            for (int i = 0; i < sectorObjects.Count; i++)
             {
                 float distanceToObject;
-                Ray ray = new Ray(transform.position, sectorObjectsVis[i].transform.position);
+                Ray ray = new Ray(transform.position, sectorObjects[i].position);
 
                 if (hitPlane.Raycast(ray, out distanceToObject))
                 {

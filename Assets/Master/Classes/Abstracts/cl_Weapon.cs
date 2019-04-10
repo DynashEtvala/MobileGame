@@ -23,6 +23,7 @@ abstract public class cl_Weapon
     protected float cooldownTimer;
     protected float cooldown;
     protected float accuracy;
+    public string name;
 
     public List<string> tags = new List<string>();
 

@@ -5,18 +5,18 @@ using UnityEngine;
 public class scr_SectorController : MonoBehaviour {
     public cl_Sector currSector;
     public int sectorNum;
-    public GameObject sectorObjectPrefab;
+    //public GameObject sectorObjectPrefab;
     public List<GameObject> sectorObjects;
 
 	// Use this for initialization
 	void Start ()
     {
-        sectorObjects = new List<GameObject>();
-        for (int i = 0; i < 5; i++)
-        {
-            sectorObjects.Add(Instantiate(sectorObjectPrefab));
-        }
-        sectorNum = 0;
+        //sectorObjects = new List<GameObject>();
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    sectorObjects.Add(Instantiate(sectorObjectPrefab));
+        //}
+        sectorNum = 3;
         currSector = GenerateSector();
 	}
 	
@@ -24,10 +24,10 @@ public class scr_SectorController : MonoBehaviour {
 	void Update ()
     {
         currSector.Update();
-		for(int i = 0; i < sectorObjects.Count; i++)
-        {
-            sectorObjects[i].transform.position = currSector.sectorObjects[i].position * 0.1f;
-        }
+		//for(int i = 0; i < sectorObjects.Count; i++)
+  //      {
+  //          sectorObjects[i].transform.position = currSector.sectorObjects[i].position * 0.1f;
+  //      }
 	}
 
     private cl_Sector GenerateSector()
@@ -117,21 +117,21 @@ public class scr_SectorController : MonoBehaviour {
             }
         }
 
-        for(int i = 0; i < objectGenCount; i++)
-        {
-            if (tempObjectList[i].tags.Contains(cl_SectorObject.ASTEROID))
-            {
-                sectorObjects[i].GetComponent<Renderer>().material.color = Color.black;
-            }
-            else if (tempObjectList[i].tags.Contains(cl_SectorObject.TRADER))
-            {
-                sectorObjects[i].GetComponent<Renderer>().material.color = Color.cyan;
-            }
-            else if (tempObjectList[i].tags.Contains(cl_SectorObject.PIRATE))
-            {
-                sectorObjects[i].GetComponent<Renderer>().material.color = Color.red;
-            }
-        }
+        //for(int i = 0; i < objectGenCount; i++)
+        //{
+        //    if (tempObjectList[i].tags.Contains(cl_SectorObject.ASTEROID))
+        //    {
+        //        sectorObjects[i].GetComponent<Renderer>().material.color = Color.black;
+        //    }
+        //    else if (tempObjectList[i].tags.Contains(cl_SectorObject.TRADER))
+        //    {
+        //        sectorObjects[i].GetComponent<Renderer>().material.color = Color.cyan;
+        //    }
+        //    else if (tempObjectList[i].tags.Contains(cl_SectorObject.PIRATE))
+        //    {
+        //        sectorObjects[i].GetComponent<Renderer>().material.color = Color.red;
+        //    }
+        //}
 
         return new cl_Sector(sectorNum, tempObjectList);
     }

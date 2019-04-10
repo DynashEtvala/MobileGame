@@ -8,7 +8,7 @@ public class cl_W_Default : cl_Weapon
 
     public cl_W_Default() : base()
     {
-
+        name = "Default Weapon";
     }
 
     // Update is called once per frame
