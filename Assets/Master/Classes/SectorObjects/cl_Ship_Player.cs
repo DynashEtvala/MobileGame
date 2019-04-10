@@ -27,6 +27,10 @@ public class cl_Ship_Player : cl_SectorObject
         tags.Add(SHIP);
         tags.Add(PLAYER);
 
+        weapons.Add(new cl_W_LowDmg());
+        weapons.Add(new cl_W_LowDmg());
+        weapons.Add(new cl_W_LowDmg());
+        weapons.Add(new cl_W_LowDmg());
 
         nuclearIntensity = scr_SystemVariableController.Volume;
         power = scr_SystemVariableController.Screen_Brightness;

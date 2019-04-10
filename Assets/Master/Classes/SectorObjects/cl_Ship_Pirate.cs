@@ -24,6 +24,7 @@ public class cl_Ship_Pirate : cl_SectorObject
         tags.Add(PIRATE);
         direction = Random.onUnitSphere;
         speed = Random.Range(0.75f, 1.25f);
+        weapons.Add(new cl_W_LowDmg());
     }
 
     public cl_Ship_Pirate(Vector3 Position) : this()
