@@ -11,6 +11,7 @@ public class cl_Ship_Pirate : cl_SectorObject
 
     //Method Names
     public const string ATTACKSHIP = "AttackShip";
+    public const string TARGET = "Target";
 
     //Variables
     Vector3 direction;
@@ -18,6 +19,7 @@ public class cl_Ship_Pirate : cl_SectorObject
     float targetTimer;
     cl_SectorObject target;
     public int currencyVal;
+    public GyroControl gyro;
     public cl_Ship_Pirate()
     {
         tags.Add(SHIP);
@@ -25,6 +27,7 @@ public class cl_Ship_Pirate : cl_SectorObject
         direction = Random.onUnitSphere;
         speed = Random.Range(0.75f, 1.25f);
         weapons.Add(new cl_W_LowDmg());
+        gyro = GameObject.Find("Gyro").GetComponent<GyroControl>();
     }
 
     public cl_Ship_Pirate(Vector3 Position) : this()
@@ -120,6 +123,12 @@ public class cl_Ship_Pirate : cl_SectorObject
                 {
                     AttackShip((cl_SectorObject)args[0], (int)args[1]);
                 }
+                break;
+            case TARGET:
+                string tempString = "";
+                foreach (cl_Weapon w in args)
+                    tempString += w.name + "\n";
+                gyro.dispScrn.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = tempString;
                 break;
             default:
                 throw new System.Exception("Method name " + Name + " is not valid");

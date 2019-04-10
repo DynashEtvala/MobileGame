@@ -8,6 +8,7 @@ public class cl_W_Explosive : cl_Weapon
     public cl_W_Explosive() : base()
     {
         tags.Add(EXPLOSIVE);
+        name = "Explosive Weapon";
     }
 
     // Update is called once per frame

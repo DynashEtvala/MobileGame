@@ -65,6 +65,8 @@ public class cl_Ship_Player : cl_SectorObject
                 return (T)(object)shieldMax;
             case CONTROLLER:
                 return (T)(object)playerController;
+            case WEAPONS:
+                return (T)(object)weapons;
         }
         throw new System.ArgumentException("Variable name " + Name + " is not valid");
     }

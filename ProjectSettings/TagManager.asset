@@ -8,6 +8,8 @@ TagManager:
   - Button
   - Radar
   - Blip
+  - TradeButton
+  - TargetButton
   layers:
   - Default
   - TransparentFX
