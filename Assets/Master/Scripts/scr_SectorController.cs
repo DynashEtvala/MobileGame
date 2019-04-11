@@ -17,6 +17,7 @@ public class scr_SectorController : MonoBehaviour {
         //{
         //    sectorObjects.Add(Instantiate(sectorObjectPrefab));
         //}
+        playerShip = new cl_Ship_Player();
         sectorNum = 3;
         currSector = GenerateSector();
 	}

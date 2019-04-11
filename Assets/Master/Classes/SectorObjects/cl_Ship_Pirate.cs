@@ -125,10 +125,13 @@ public class cl_Ship_Pirate : cl_SectorObject
                 }
                 break;
             case TARGET:
-                string tempString = "";
-                foreach (cl_Weapon w in args)
-                    tempString += w.name + "\n";
-                gyro.dispScrn.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = tempString;
+                if (args[0] is List<cl_Weapon>)
+                {
+                    string tempString = "";
+                    foreach (cl_Weapon w in (List<cl_Weapon>)args[0])
+                        tempString += w.name + "\n";
+                    gyro.dispScrn.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = tempString;
+                }
                 break;
             default:
                 throw new System.Exception("Method name " + Name + " is not valid");
@@ -143,5 +146,16 @@ public class cl_Ship_Pirate : cl_SectorObject
         {
             Attacker.GetVar<PlayerController>(cl_Ship_Player.CONTROLLER).currency += currencyVal;
         }
+    }
+
+    public void Target(List<cl_Weapon> weps)
+    {
+        string tempString = "";
+        foreach (cl_Weapon w in weps)
+        {
+            Debug.Log(w.name);
+            tempString += w.name + "\n";
+        }
+        gyro.dispScrn.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = tempString;
     }
 }

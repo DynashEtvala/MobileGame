@@ -59,6 +59,11 @@ abstract public class cl_SectorObject
 
     abstract public T GetVar<T>(string Name);
 
+    virtual public T GetVarIndex<T>(string Name, int Index)
+    {
+        throw new System.NotImplementedException();
+    }
+
     abstract public void SetVar<T>(string Name, T Val);
 
     abstract public void CallMethod(string Name, params object[] args);

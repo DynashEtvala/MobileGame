@@ -104,7 +104,14 @@ public class GyroControl : MonoBehaviour
                     }
                     else if (rayHit.transform.gameObject.CompareTag("TargetButton") )
                     {
-                        pirateObjBuffer.CallMethod("Target", player.GetVar<cl_Weapon>("Weapons"));
+                        List<cl_Weapon> tempWeps = new List<cl_Weapon>();
+                        int listCount = currSector.sectorObjects[0].GetVar<int>("Weapons");
+                        for(int i = 0; i < listCount; i++)
+                        {
+                            tempWeps.Add(currSector.sectorObjects[0].GetVarIndex<cl_Weapon>("Weapons", i));
+                        }
+
+                        ((cl_Ship_Pirate)pirateObjBuffer).Target(tempWeps);
                         Destroy(targetButton);
                     }
                     else if(rayHit.transform.gameObject.CompareTag("Blip"))

@@ -32,9 +32,9 @@ public class cl_Ship_Player : cl_SectorObject
         weapons.Add(new cl_W_LowDmg());
         weapons.Add(new cl_W_LowDmg());
 
-        nuclearIntensity = scr_SystemVariableController.Volume;
-        power = scr_SystemVariableController.Screen_Brightness;
-        canConnectToSystems = scr_SystemVariableController.Wifi_Enabled;
+        //nuclearIntensity = scr_SystemVariableController.Volume;
+        //power = scr_SystemVariableController.Screen_Brightness;
+        //canConnectToSystems = scr_SystemVariableController.Wifi_Enabled;
     }
 
     public cl_Ship_Player(PlayerController playerController) : this()
@@ -66,9 +66,19 @@ public class cl_Ship_Player : cl_SectorObject
             case CONTROLLER:
                 return (T)(object)playerController;
             case WEAPONS:
-                return (T)(object)weapons;
+                return (T)(object)weapons.Count;
         }
         throw new System.ArgumentException("Variable name " + Name + " is not valid");
+    }
+
+    public override T GetVarIndex<T>(string Name, int Index)
+    {
+        switch (Name)
+        {
+            case WEAPONS:
+                return (T)(object)weapons[Index];
+        }
+        throw new System.ArgumentException("List name " + Name + " is not valid");
     }
 
     override public void SetVar<T>(string Name, T Val)
