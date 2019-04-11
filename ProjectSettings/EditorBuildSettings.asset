@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Carter/Scenes/test.unity
+    guid: 2dcf40368b2f9bb469155a12c56d30eb
   m_configObjects: {}
