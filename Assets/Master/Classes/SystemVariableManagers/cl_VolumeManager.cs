@@ -9,18 +9,21 @@ public static class cl_VolumeManager
     public static int GetDeviceMinVolume()
     {
         int streammusic = 3;
+        if(deviceAudio == null) { return -1; }
         return deviceAudio.Call<int>("getStreamMinVolume", streammusic);
     }
 
     public static int GetDeviceMaxVolume()
     {
         int streammusic = 3;
+        if (deviceAudio == null) { return -1; }
         return deviceAudio.Call<int>("getStreamMaxVolume", streammusic);
     }
 
     public static int GetDeviceVolume()
     {
         int streammusic = 3;
+        if (deviceAudio == null) { return -1; }
         return deviceAudio.Call<int>("getStreamVolume", streammusic);
     }
 
@@ -30,12 +33,19 @@ public static class cl_VolumeManager
     {
         get
         {
-            if (audioManager == null)
+            try
             {
-                AndroidJavaClass up = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-                AndroidJavaObject context = up.GetStatic<AndroidJavaObject>("currentActivity");
+                if (audioManager == null)
+                {
+                    AndroidJavaClass up = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                    AndroidJavaObject context = up.GetStatic<AndroidJavaObject>("currentActivity");
 
-                audioManager = context.Call<AndroidJavaObject>("getSystemService", "audio");
+                    audioManager = context.Call<AndroidJavaObject>("getSystemService", "audio");
+                }
+            }
+            catch
+            {
+                Debug.LogWarning("Failed to initialize AudioManager. Are you on Android?");
             }
             return audioManager;
         }

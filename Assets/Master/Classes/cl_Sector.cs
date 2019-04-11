@@ -24,6 +24,15 @@ public class cl_Sector {
         for(int i = 0; i < sectorObjects.Count; i++)
         {
             sectorObjects[i].Update(this);
+            if (sectorObjects[i].GetVar<int>("HullPoints") <= 0 && sectorObjects[i].tags.Contains("Ship"))
+            {
+                sectorObjects.Remove(sectorObjects[i]);
+                GameObject.Destroy(GameObject.FindGameObjectWithTag("Gyro").GetComponent<GyroControl>().blips[i]);
+                GameObject.FindGameObjectWithTag("Gyro").GetComponent<GyroControl>().blips.Remove(GameObject.FindGameObjectWithTag("Gyro").GetComponent<GyroControl>().blips[i]);
+                GameObject.Destroy(GameObject.FindGameObjectWithTag("Gyro").GetComponent<GyroControl>().dispScrn);
+                GameObject.Destroy(GameObject.FindGameObjectWithTag("Gyro").GetComponent<GyroControl>().fireButton);
+                i--;
+            }
         }
     }
 }

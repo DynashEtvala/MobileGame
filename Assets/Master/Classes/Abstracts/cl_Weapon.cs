@@ -19,7 +19,7 @@ abstract public class cl_Weapon
     public const string PIERCING = "Piercing";
 
     //Variables
-    protected int damage;
+    public int damage;
     protected float cooldownTimer;
     protected float cooldown;
     protected float accuracy;

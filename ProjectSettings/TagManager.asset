@@ -10,6 +10,8 @@ TagManager:
   - Blip
   - TradeButton
   - TargetButton
+  - FireButton
+  - Gyro
   layers:
   - Default
   - TransparentFX

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public class cl_Ship_Player : cl_SectorObject
 {
 
@@ -23,7 +22,6 @@ public class cl_Ship_Player : cl_SectorObject
 
     public cl_Ship_Player() : base()
     {
-
         tags.Add(SHIP);
         tags.Add(PLAYER);
 
@@ -31,6 +29,8 @@ public class cl_Ship_Player : cl_SectorObject
         weapons.Add(new cl_W_LowDmg());
         weapons.Add(new cl_W_LowDmg());
         weapons.Add(new cl_W_LowDmg());
+
+        hpMax = hp = 30;
 
         //nuclearIntensity = scr_SystemVariableController.Volume;
         //power = scr_SystemVariableController.Screen_Brightness;

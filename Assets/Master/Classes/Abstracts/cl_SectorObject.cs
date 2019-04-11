@@ -29,7 +29,7 @@ abstract public class cl_SectorObject
     protected int hp, hpMax;
     protected int shield, shieldMax;
     protected float evasion;
-    protected List<cl_Weapon> weapons = new List<cl_Weapon>();
+    public List<cl_Weapon> weapons = new List<cl_Weapon>();
     protected List<cl_ShipSystem> systems = new List<cl_ShipSystem>();
 
     public cl_SectorObject()
@@ -69,7 +69,7 @@ abstract public class cl_SectorObject
     abstract public void CallMethod(string Name, params object[] args);
 
     //Default methods
-    virtual public void Damaged(cl_Weapon Weapon)
+    virtual public void Damaged(cl_Weapon Weapon, cl_SectorObject attacker)
     {
         int damageTaken = Weapon.GetVar<int>(cl_Weapon.DAMAGE);
         if (Weapon.tags.Contains(cl_Weapon.PIERCING) == false)
@@ -122,7 +122,7 @@ abstract public class cl_SectorObject
             {
                 if (Random.value < weapons[Weapon].GetVar<float>(cl_Weapon.ACCURACY) * (1.0f - evasion))
                 {
-                    Target.Damaged(weapons[Weapon]);
+                    Target.Damaged(weapons[Weapon], this);
                 }
             }
         }

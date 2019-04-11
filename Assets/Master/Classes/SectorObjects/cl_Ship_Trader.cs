@@ -19,6 +19,8 @@ public class cl_Ship_Trader : cl_SectorObject
     string invText = "";
     public cl_Ship_Trader() : base()
     {
+        hpMax = hp = 30;
+
         tags.Add(SHIP);
         tags.Add(TRADER);
         direction = Random.onUnitSphere;

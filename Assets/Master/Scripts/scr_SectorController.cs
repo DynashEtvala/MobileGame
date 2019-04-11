@@ -36,7 +36,7 @@ public class scr_SectorController : MonoBehaviour {
     {
         List<cl_SectorObject> tempObjectList = new List<cl_SectorObject>();
 
-        int objectGenCount = 5 + sectorNum / 2;
+        int objectGenCount = 10 + sectorNum / 2;
 
         tempObjectList.Add(playerShip);
 

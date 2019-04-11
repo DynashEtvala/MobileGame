@@ -43,9 +43,12 @@ public class GyroControl : MonoBehaviour
     private scr_SectorController sectorController;
     private cl_Sector currSector;
     private cl_SectorObject player;
-    private List<cl_SectorObject> sectorObjects;
+    public List<cl_SectorObject> sectorObjects;
 
     private Dictionary<GameObject, cl_SectorObject> blipToObjDict = new Dictionary<GameObject, cl_SectorObject>();
+
+    public GameObject fireButtonPrefab;
+    public GameObject fireButton;
 
     void Start()
     {
@@ -81,6 +84,7 @@ public class GyroControl : MonoBehaviour
                 firstRun = true;
             }
 
+            blips[0].gameObject.SetActive(false);
             if (Input.GetMouseButtonDown(0))
             {
                 Vector3 touchPosFar = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.farClipPlane);
@@ -101,6 +105,10 @@ public class GyroControl : MonoBehaviour
                     {
                         traderObjBuffer.CallMethod("OpenShop");
                         Destroy(traderButton);
+                    }else if (rayHit.transform.gameObject.CompareTag("FireButton") )
+                    {
+                        player.CallMethod("AttackShip", pirateObjBuffer, 0);
+                        Debug.Log(pirateObjBuffer.GetVar<int>("HullPoints"));
                     }
                     else if (rayHit.transform.gameObject.CompareTag("TargetButton") )
                     {

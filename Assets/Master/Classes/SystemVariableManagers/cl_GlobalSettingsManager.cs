@@ -7,12 +7,20 @@ public static class cl_GlobalSettingsManager
 {
     public static float GetScreenBrightness()
     {
-        using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-        {
-            var context = actClass.GetStatic<AndroidJavaObject>("currentActivity");
-            AndroidJavaClass systemGlobal = new AndroidJavaClass("android.provider.Settings$System");
+        try
+        {        
+            using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            {
+                var context = actClass.GetStatic<AndroidJavaObject>("currentActivity");
+                AndroidJavaClass systemGlobal = new AndroidJavaClass("android.provider.Settings$System");
 
-            return systemGlobal.CallStatic<int>("getInt", context.Call<AndroidJavaObject>("getContentResolver"), "screen_brightness") / 255.0f;
+                return systemGlobal.CallStatic<int>("getInt", context.Call<AndroidJavaObject>("getContentResolver"), "screen_brightness") / 255.0f;
+            }
+        }
+        catch
+        {
+            Debug.LogWarning("Failed to get brightness. Are you on Android?");
+            return 0.0f;
         }
     }
 }

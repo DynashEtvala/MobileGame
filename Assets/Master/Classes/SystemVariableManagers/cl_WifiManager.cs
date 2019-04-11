@@ -7,6 +7,11 @@ public static class cl_WifiManager {
 
     public static bool IsWifiEnabled()
     {
+        if(deviceWifi == null)
+        {
+            Debug.LogWarning("Failed to initialize WifiManager. Are you on Android?");
+            return false;
+        }
         return deviceWifi.Call<bool>("isWifiEnabled");
     }
 
@@ -16,14 +21,22 @@ public static class cl_WifiManager {
     {
         get
         {
-            if (wifiManager == null)
+            try
             {
-                AndroidJavaClass up = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-                AndroidJavaObject context = up.GetStatic<AndroidJavaObject>("currentActivity");
+                if (wifiManager == null)
+                {
+                    AndroidJavaClass up = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                    AndroidJavaObject context = up.GetStatic<AndroidJavaObject>("currentActivity");
 
-                wifiManager = context.Call<AndroidJavaObject>("getSystemService", "wifi");
+                    wifiManager = context.Call<AndroidJavaObject>("getSystemService", "wifi");
+                }
+                return wifiManager;
             }
-            return wifiManager;
+            catch
+            {
+                Debug.LogWarning("Failed to initialize AudioManager. Are you on Android?");
+                return null;
+            }
         }
     }
 }

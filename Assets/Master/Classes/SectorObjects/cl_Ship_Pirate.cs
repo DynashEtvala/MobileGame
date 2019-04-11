@@ -28,6 +28,7 @@ public class cl_Ship_Pirate : cl_SectorObject
         speed = Random.Range(0.75f, 1.25f);
         weapons.Add(new cl_W_LowDmg());
         gyro = GameObject.Find("Gyro").GetComponent<GyroControl>();
+        hpMax = hp = 30;
     }
 
     public cl_Ship_Pirate(Vector3 Position) : this()
@@ -157,5 +158,15 @@ public class cl_Ship_Pirate : cl_SectorObject
             tempString += w.name + "\n";
         }
         gyro.dispScrn.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = tempString;
+        gyro.fireButton = GameObject.Instantiate(gyro.fireButtonPrefab);
+    }
+
+    public override void Damaged(cl_Weapon Weapon, cl_SectorObject attacker)
+    {
+        base.Damaged(Weapon, attacker);
+        if (hp <= 0)
+        {
+            OnDestroy(attacker);
+        }
     }
 }
