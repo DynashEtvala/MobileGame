@@ -145,7 +145,7 @@ public class cl_Ship_Pirate : cl_SectorObject
         base.OnDestroy(Attacker);
         if (Attacker.tags.Contains(PLAYER))
         {
-            Attacker.GetVar<PlayerController>(cl_Ship_Player.CONTROLLER).currency += currencyVal;
+            //Attacker.GetVar<>(cl_Ship_Player.CONTROLLER).currency += currencyVal;
         }
     }
 

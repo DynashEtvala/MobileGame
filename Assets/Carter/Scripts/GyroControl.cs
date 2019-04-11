@@ -95,6 +95,14 @@ public class GyroControl : MonoBehaviour
 
                 if (Physics.Raycast(touchPosN, touchPosF - touchPosN, out rayHit))
                 {
+                    if (!rayHit.transform.gameObject.CompareTag("FireButton") && fireButton != null)
+                    {
+                            Destroy(fireButton);
+                    }
+                    if (!rayHit.transform.gameObject.CompareTag("TargetButton") && targetButton != null)
+                    {
+                            Destroy(targetButton);
+                    }
                     if (rayHit.transform.gameObject.CompareTag("Radar") && dispScrn != null)
                     {
                         dispScrn.SetActive(false);
